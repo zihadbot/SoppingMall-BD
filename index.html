@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>ShoppingMall BD</title>
 
+<!-- PDF GENERATOR -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{
@@ -426,6 +430,198 @@ textarea{
   font-weight:bold;
 }
 
+/* =====================================================
+   INVOICE
+===================================================== */
+
+.invoice-modal-box{
+  width:min(600px,100%);
+}
+
+.invoice-area{
+  background:#fff;
+  color:#222;
+  padding:18px;
+  border:1px solid #eee;
+  border-radius:8px;
+}
+
+.invoice-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+  padding-bottom:14px;
+  border-bottom:2px solid #ff5a00;
+}
+
+.invoice-header h2{
+  font-size:20px;
+  color:#ff5a00;
+  margin-bottom:3px;
+}
+
+.invoice-header p{
+  font-size:8px;
+  letter-spacing:2px;
+  color:#888;
+}
+
+.invoice-title{
+  text-align:right;
+}
+
+.invoice-title strong{
+  display:block;
+  font-size:18px;
+}
+
+.invoice-title span{
+  display:block;
+  color:#777;
+  font-size:10px;
+  margin-top:3px;
+}
+
+.invoice-success{
+  background:#edfff3;
+  color:#16a34a;
+  padding:9px;
+  border-radius:6px;
+  font-size:11px;
+  font-weight:bold;
+  margin:12px 0;
+  text-align:center;
+}
+
+.invoice-info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-bottom:10px;
+}
+
+.invoice-info div{
+  background:#f8f8f8;
+  padding:9px;
+  border-radius:6px;
+}
+
+.invoice-info span,
+.invoice-address span{
+  display:block;
+  color:#888;
+  font-size:9px;
+  margin-bottom:4px;
+}
+
+.invoice-info strong,
+.invoice-address strong{
+  display:block;
+  font-size:11px;
+  word-break:break-word;
+}
+
+.invoice-address{
+  background:#fff8f3;
+  padding:10px;
+  border-radius:6px;
+  margin-bottom:12px;
+}
+
+.invoice-items h3{
+  font-size:13px;
+  margin-bottom:7px;
+}
+
+.invoice-item-row{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  padding:8px 0;
+  border-bottom:1px solid #eee;
+}
+
+.invoice-item-name{
+  font-size:11px;
+  font-weight:bold;
+}
+
+.invoice-item-details{
+  color:#777;
+  font-size:9px;
+  margin-top:3px;
+}
+
+.invoice-item-price{
+  font-size:11px;
+  font-weight:bold;
+  color:#ff5a00;
+  white-space:nowrap;
+}
+
+.invoice-total{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:12px;
+  padding-top:10px;
+  border-top:2px solid #eee;
+}
+
+.invoice-total span{
+  font-size:13px;
+  font-weight:bold;
+}
+
+.invoice-total strong{
+  color:#ff5a00;
+  font-size:19px;
+}
+
+.invoice-footer{
+  text-align:center;
+  color:#888;
+  font-size:9px;
+  margin-top:18px;
+  padding-top:10px;
+  border-top:1px dashed #ddd;
+}
+
+.download-invoice-btn{
+  width:100%;
+  background:#ff5a00;
+  color:#fff;
+  padding:12px;
+  border-radius:7px;
+  margin-top:12px;
+  font-weight:bold;
+}
+
+.close-invoice-btn{
+  width:100%;
+  background:#eee;
+  color:#555;
+  padding:10px;
+  border-radius:7px;
+  margin-top:7px;
+  font-weight:bold;
+}
+
+@media(max-width:450px){
+  .invoice-area{
+    padding:12px;
+  }
+
+  .invoice-header h2{
+    font-size:17px;
+  }
+
+  .invoice-title strong{
+    font-size:15px;
+  }
+}
+
 /* TOAST */
 .toast{
   position:fixed;
@@ -455,6 +651,7 @@ textarea{
 /* =========================================
    PRODUCT DETAIL SCREEN
 ========================================= */
+
 .product-detail-modal{
   position:fixed;
   inset:0;
@@ -546,20 +743,6 @@ textarea{
   width:100%;
   height:100%;
   object-fit:contain;
-}
-.detail-photo-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  border-top:1px solid #eee;
-}
-.detail-photo-actions button{
-  background:#fff;
-  padding:12px 5px;
-  font-size:12px;
-  color:#555;
-}
-.detail-photo-actions button+button{
-  border-left:1px solid #eee;
 }
 .detail-form-card{
   background:#fff;
@@ -890,7 +1073,6 @@ textarea{
     </div>
   </section>
 
-  <!-- CATEGORY -->
   <div class="section-title">
     <h2>ক্যাটাগরি</h2>
     <span>সব দেখুন</span>
@@ -898,7 +1080,6 @@ textarea{
 
   <section id="categories" class="categories"></section>
 
-  <!-- PRODUCTS -->
   <div class="section-title">
     <h2>🔥 জনপ্রিয় পণ্য</h2>
     <span id="productTotal">0 টি পণ্য</span>
@@ -991,6 +1172,130 @@ textarea{
   </div>
 </div>
 
+<!-- =====================================================
+     INVOICE MODAL
+===================================================== -->
+
+<div id="invoiceModal" class="modal">
+
+  <div class="modal-box invoice-modal-box">
+
+    <div class="modal-head">
+      <strong>🧾 অর্ডার ইনভয়েস</strong>
+
+      <button onclick="closeInvoice()">
+        ×
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <div id="invoiceArea" class="invoice-area">
+
+        <div class="invoice-header">
+
+          <div>
+            <h2>🛍️ ShoppingMall BD</h2>
+            <p>ONLINE SHOPPING</p>
+          </div>
+
+          <div class="invoice-title">
+            <strong>INVOICE</strong>
+            <span id="invoiceNumber">
+              #SMBD-000000
+            </span>
+          </div>
+
+        </div>
+
+        <div class="invoice-success">
+          ✓ আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে
+        </div>
+
+        <div class="invoice-info">
+
+          <div>
+            <span>Customer Name</span>
+            <strong id="invoiceCustomerName">—</strong>
+          </div>
+
+          <div>
+            <span>Mobile</span>
+            <strong id="invoiceCustomerPhone">—</strong>
+          </div>
+
+          <div>
+            <span>Payment</span>
+            <strong id="invoicePayment">—</strong>
+          </div>
+
+          <div>
+            <span>Order Date</span>
+            <strong id="invoiceDate">—</strong>
+          </div>
+
+        </div>
+
+        <div class="invoice-address">
+
+          <span>Delivery Address</span>
+
+          <strong id="invoiceAddress">
+            —
+          </strong>
+
+        </div>
+
+        <div class="invoice-items">
+
+          <h3>
+            অর্ডার তালিকা
+          </h3>
+
+          <div id="invoiceItems"></div>
+
+        </div>
+
+        <div class="invoice-total">
+
+          <span>
+            সর্বমোট
+          </span>
+
+          <strong id="invoiceTotal">
+            ৳0
+          </strong>
+
+        </div>
+
+        <div class="invoice-footer">
+          ধন্যবাদ ShoppingMall BD থেকে কেনাকাটা করার জন্য ❤️
+        </div>
+
+      </div>
+
+      <button
+        class="download-invoice-btn"
+        onclick="downloadInvoicePDF()">
+
+        📄 PDF Download করুন
+
+      </button>
+
+      <button
+        class="close-invoice-btn"
+        onclick="closeInvoice()">
+
+        বন্ধ করুন
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
 <!-- PRODUCT DETAIL -->
 <div id="productDetailModal" class="product-detail-modal">
 
@@ -1010,13 +1315,10 @@ textarea{
         ৳ পয়েন্ট দেখুন
       </button>
 
-      
-
     </header>
 
     <main class="detail-page">
 
-      <!-- IMAGE -->
       <section class="detail-photo-card">
 
         <div class="detail-photo-wrap">
@@ -1025,11 +1327,8 @@ textarea{
           </div>
         </div>
 
-       
-
       </section>
 
-      <!-- PRODUCT INFO -->
       <section class="detail-form-card">
 
         <div class="detail-verified">
@@ -1112,8 +1411,6 @@ textarea{
 
         </div>
 
-        
-
         <button class="detail-order-list"
                 onclick="orderDetailNow()">
           🛒 অর্ডার তালিকায় অ্যাড করুন
@@ -1121,7 +1418,6 @@ textarea{
 
       </section>
 
-      <!-- DESCRIPTION -->
       <section class="detail-description-card">
 
         <h3>
@@ -1136,7 +1432,6 @@ textarea{
 
     </main>
 
-    <!-- DETAIL BOTTOM NAV -->
     <nav class="detail-bottom-nav">
 
       <button class="nav-item active"
@@ -1191,7 +1486,7 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 ========================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAW2C_q56dGFso0rysmZat4AD4SBWdSIG4",
+  apiKey: "AIzaSyAW2C_q56dFJ",
   authDomain: "stopping-mall-bd.firebaseapp.com",
   projectId: "stopping-mall-bd",
   storageBucket: "stopping-mall-bd.firebasestorage.app",
@@ -1851,7 +2146,7 @@ window.closeOrderModal = closeOrderModal;
 
 
 /* =========================================
-   SUBMIT ORDER
+   SUBMIT ORDER + INVOICE
 ========================================= */
 
 async function submitOrder(){
@@ -1875,6 +2170,10 @@ async function submitOrder(){
     document.getElementById("customerAddress")
       .value.trim();
 
+  const payment =
+    document.getElementById("payment")
+      .value;
+
   if(!name || !phone || !address){
 
     alert(
@@ -1893,22 +2192,20 @@ async function submitOrder(){
       0
     );
 
+  const orderDate =
+    new Date().toLocaleString("bn-BD");
+
   const order = {
 
-    date:
-      new Date()
-        .toLocaleString("bn-BD"),
+    date:orderDate,
 
-    createdAt:
-      Date.now(),
+    createdAt:Date.now(),
 
     customer:{
       name:name,
       phone:phone,
       address:address,
-      payment:
-        document.getElementById("payment")
-          .value
+      payment:payment
     },
 
     items:
@@ -1918,11 +2215,9 @@ async function submitOrder(){
 
         name:x.name,
 
-        price:
-          Number(x.price || 0),
+        price:Number(x.price || 0),
 
-        qty:
-          Number(x.qty || 1),
+        qty:Number(x.qty || 1),
 
         size:
           x.size ||
@@ -1949,10 +2244,113 @@ async function submitOrder(){
 
   try{
 
-    await addDoc(
-      collection(db,"orders"),
-      order
-    );
+    /* SAVE ORDER TO FIREBASE */
+
+    const orderRef =
+      await addDoc(
+        collection(db,"orders"),
+        order
+      );
+
+
+    /* =====================================
+       CREATE INVOICE
+    ===================================== */
+
+    const invoiceNo =
+      "SMBD-" +
+      orderRef.id
+        .substring(0,8)
+        .toUpperCase();
+
+    document.getElementById("invoiceNumber")
+      .textContent =
+        "#" + invoiceNo;
+
+    document.getElementById("invoiceCustomerName")
+      .textContent =
+        name;
+
+    document.getElementById("invoiceCustomerPhone")
+      .textContent =
+        phone;
+
+    document.getElementById("invoicePayment")
+      .textContent =
+        payment;
+
+    document.getElementById("invoiceDate")
+      .textContent =
+        orderDate;
+
+    document.getElementById("invoiceAddress")
+      .textContent =
+        address;
+
+    document.getElementById("invoiceTotal")
+      .textContent =
+        money(total);
+
+
+    /* =====================================
+       INVOICE ITEMS
+    ===================================== */
+
+    document.getElementById("invoiceItems")
+      .innerHTML =
+
+      cart.map(x => {
+
+        const itemTotal =
+          Number(x.price || 0) *
+          Number(x.qty || 1);
+
+        return `
+
+          <div class="invoice-item-row">
+
+            <div>
+
+              <div class="invoice-item-name">
+                ${x.name || "পণ্য"}
+              </div>
+
+              <div class="invoice-item-details">
+
+                Qty: ${x.qty || 1}
+
+                ${
+                  x.size
+                  ? ` • সাইজ: ${x.size}`
+                  : ""
+                }
+
+                ${
+                  x.sku
+                  ? ` • SKU: ${x.sku}`
+                  : ""
+                }
+
+              </div>
+
+            </div>
+
+            <div class="invoice-item-price">
+
+              ${money(itemTotal)}
+
+            </div>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+
+    /* =====================================
+       CLEAR CART
+    ===================================== */
 
     cart = [];
 
@@ -1960,7 +2358,8 @@ async function submitOrder(){
 
     updateCart();
 
-    closeOrderModal();
+
+    /* CLEAR FORM */
 
     document.getElementById("customerName")
       .value = "";
@@ -1971,11 +2370,24 @@ async function submitOrder(){
     document.getElementById("customerAddress")
       .value = "";
 
-    alert(
-      "আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে ✓"
-    );
+
+    /* CLOSE ORDER */
+
+    closeOrderModal();
+
+
+    /* OPEN INVOICE */
+
+    document.getElementById("invoiceModal")
+      .classList.add("show");
+
+    document.body.style.overflow =
+      "hidden";
+
 
   }catch(e){
+
+    console.error(e);
 
     alert(
       "অর্ডার করা যায়নি: " +
@@ -1985,7 +2397,177 @@ async function submitOrder(){
   }
 }
 
-window.submitOrder = submitOrder;
+window.submitOrder =
+  submitOrder;
+
+
+/* =========================================
+   CLOSE INVOICE
+========================================= */
+
+function closeInvoice(){
+
+  document.getElementById("invoiceModal")
+    .classList.remove("show");
+
+  document.body.style.overflow =
+    "";
+
+}
+
+window.closeInvoice =
+  closeInvoice;
+
+
+/* =========================================
+   DOWNLOAD INVOICE PDF
+========================================= */
+
+async function downloadInvoicePDF(){
+
+  const invoice =
+    document.getElementById("invoiceArea");
+
+  if(!invoice){
+
+    showToast("Invoice পাওয়া যায়নি");
+
+    return;
+  }
+
+  try{
+
+    showToast("PDF তৈরি হচ্ছে...");
+
+
+    const canvas =
+      await html2canvas(
+        invoice,
+        {
+          scale:2,
+          useCORS:true,
+          backgroundColor:"#ffffff"
+        }
+      );
+
+
+    const imgData =
+      canvas.toDataURL("image/jpeg",0.95);
+
+    const {
+      jsPDF
+    } =
+      window.jspdf;
+
+
+    const pdf =
+      new jsPDF({
+        orientation:"portrait",
+        unit:"mm",
+        format:"a4"
+      });
+
+
+    const pageWidth =
+      pdf.internal.pageSize.getWidth();
+
+    const pageHeight =
+      pdf.internal.pageSize.getHeight();
+
+    const margin = 8;
+
+    const usableWidth =
+      pageWidth -
+      margin * 2;
+
+    const imgWidth =
+      usableWidth;
+
+    const imgHeight =
+      canvas.height *
+      imgWidth /
+      canvas.width;
+
+
+    let heightLeft =
+      imgHeight;
+
+    let position =
+      margin;
+
+
+    pdf.addImage(
+      imgData,
+      "JPEG",
+      margin,
+      position,
+      imgWidth,
+      imgHeight
+    );
+
+    heightLeft -=
+      pageHeight -
+      margin * 2;
+
+
+    while(heightLeft > 0){
+
+      position =
+        position -
+        (
+          pageHeight -
+          margin * 2
+        );
+
+      pdf.addPage();
+
+      pdf.addImage(
+        imgData,
+        "JPEG",
+        margin,
+        position,
+        imgWidth,
+        imgHeight
+      );
+
+      heightLeft -=
+        pageHeight -
+        margin * 2;
+
+    }
+
+
+    const invoiceNumber =
+      document.getElementById("invoiceNumber")
+        .textContent
+        .replace("#","")
+        .trim();
+
+
+    pdf.save(
+      invoiceNumber +
+      ".pdf"
+    );
+
+
+    showToast("PDF Download হয়েছে ✓");
+
+  }catch(error){
+
+    console.error(
+      "PDF Error:",
+      error
+    );
+
+    alert(
+      "PDF তৈরি করা যায়নি। আবার চেষ্টা করুন।"
+    );
+
+  }
+}
+
+window.downloadInvoicePDF =
+  downloadInvoicePDF;
 
 
 /* =========================================
@@ -2166,47 +2748,6 @@ function closeProductDetail(){
 
 window.closeProductDetail =
   closeProductDetail;
-
-
-/* =========================================
-   DETAIL ADD TO CART
-========================================= */
-
-function addDetailToCart(){
-
-  if(!detailProduct) return;
-
-  const p = detailProduct;
-
-  const availableSizes =
-    productSizes(p);
-
-  const size =
-    detailSelectedSize ||
-    availableSizes[0] ||
-    "";
-
-  const stock =
-    productStock(p);
-
-  if(stock === 0){
-
-    showToast("এই পণ্যটি স্টকে নেই");
-
-    return;
-  }
-
-  addCart(
-    p.id,
-    size,
-    detailQuantity
-  );
-
-  closeProductDetail();
-}
-
-window.addDetailToCart =
-  addDetailToCart;
 
 
 /* =========================================
