@@ -55,6 +55,10 @@ label{font-size:12px;font-weight:700}.btn{padding:10px 14px;border-radius:7px;bo
 <label>ক্যাটাগরি</label><input id="pCategory" placeholder="ইলেকট্রনিক্স">
 <label>বিক্রয় মূল্য</label><input id="pPrice" type="number" placeholder="999">
 <label>আগের মূল্য</label><input id="pOld" type="number" placeholder="1299">
+<label>সাইজ (কমা দিয়ে লিখুন)</label><input id="pSizes" placeholder="M, L, XL, XXL">
+<label>স্টক / পরিমাণ (পিস)</label><input id="pQuantity" type="number" min="0" placeholder="10">
+<label>SKU</label><input id="pSku" placeholder="যেমন: 31186">
+<label>পণ্যের বিবরণ</label><textarea id="pDescription" placeholder="পণ্যের বিস্তারিত তথ্য লিখুন..."></textarea>
 <label>ছবির URL</label><input id="pImage" placeholder="https://...">
 <label>ব্যাজ</label><input id="pBadge" placeholder="20% OFF">
 <button class="btn green" onclick="addProduct()">পণ্য যোগ করুন</button>
@@ -157,19 +161,30 @@ function saveBanner(){
 async function addProduct(){
   const name=pName.value.trim(),cat=pCategory.value.trim(),
         price=Number(pPrice.value),old=Number(pOld.value),image=pImage.value.trim();
+  const sizes=pSizes.value.split(",").map(s=>s.trim()).filter(Boolean);
+  const quantity=Math.max(0,Number(pQuantity.value||0));
+  const sku=pSku.value.trim();
+  const description=pDescription.value.trim();
   if(!name||!cat||!price||!image){alert("নাম, ক্যাটাগরি, দাম ও ছবি দিন");return}
   try{
     await addDoc(collection(db,"products"),{
       name,category:cat,price,oldPrice:old||price,rating:5,
-      badge:pBadge.value.trim()||"NEW",image
+      badge:pBadge.value.trim()||"NEW",image,
+      sizes:sizes.length?sizes:["M","L","XL","XXL"],quantity,
+      sku:sku||String(Date.now()).slice(-6),
+      description:description||"প্রিমিয়াম কোয়ালিটি পণ্য। ভালোভাবে প্যাকেজিং করে দ্রুত ডেলিভারি করা হবে।"
     });
-    ["pName","pCategory","pPrice","pOld","pImage","pBadge"].forEach(id=>document.getElementById(id).value="");
+    ["pName","pCategory","pPrice","pOld","pSizes","pQuantity","pSku","pDescription","pImage","pBadge"].forEach(id=>document.getElementById(id).value="");
     alert("Firebase-এ পণ্য যোগ হয়েছে ✓");
   }catch(e){alert("পণ্য যোগ হয়নি: "+e.message)}
 }
 
 function renderProducts(){
-  productList.innerHTML=products.map(p=>`<div class="product"><img src="${p.image}" onerror="this.style.display='none'"><div class="pinfo"><h3>${p.name}</h3><p>${p.category} • ${money(p.price)}</p></div><div class="actions"><button class="btn gray" onclick="editProduct('${p.id}')">এডিট</button><button class="btn danger" onclick="deleteProduct('${p.id}')">ডিলিট</button></div></div>`).join("") || `<p style="color:#888">কোনো পণ্য নেই।</p>`;
+  productList.innerHTML=products.map(p=>{
+    const sizes=Array.isArray(p.sizes)?p.sizes.join(", "):(p.sizes||"M, L, XL, XXL");
+    const qty=p.quantity??p.stock??"—";
+    return `<div class="product"><img src="${p.image}" onerror="this.style.display='none'"><div class="pinfo"><h3>${p.name}</h3><p>${p.category} • ${money(p.price)} • সাইজ: ${sizes} • স্টক: ${qty} • SKU: ${p.sku||p.SKU||p.id}</p></div><div class="actions"><button class="btn gray" onclick="editProduct('${p.id}')">এডিট</button><button class="btn danger" onclick="deleteProduct('${p.id}')">ডিলিট</button></div></div>`;
+  }).join("") || `<p style="color:#888">কোনো পণ্য নেই।</p>`;
 }
 
 async function editProduct(id){
@@ -177,8 +192,21 @@ async function editProduct(id){
   const name=prompt("পণ্যের নাম",p.name);if(name===null)return;
   const price=prompt("বিক্রয় মূল্য",p.price);if(price===null)return;
   const category=prompt("ক্যাটাগরি",p.category);if(category===null)return;
+  const sizesText=prompt("সাইজ (কমা দিয়ে)",Array.isArray(p.sizes)?p.sizes.join(", "):(p.sizes||"M, L, XL, XXL"));if(sizesText===null)return;
+  const quantityText=prompt("স্টক / পরিমাণ (পিস)",p.quantity??p.stock??0);if(quantityText===null)return;
+  const sku=prompt("SKU",p.sku||p.SKU||p.id);if(sku===null)return;
+  const description=prompt("পণ্যের বিবরণ",p.description||p.details||"");if(description===null)return;
+  const sizes=sizesText.split(",").map(s=>s.trim()).filter(Boolean);
   try{
-    await setDoc(doc(db,"products",id),{name:name.trim()||p.name,price:Number(price)||p.price,category:category.trim()||p.category},{merge:true});
+    await setDoc(doc(db,"products",id),{
+      name:name.trim()||p.name,
+      price:Number(price)||p.price,
+      category:category.trim()||p.category,
+      sizes:sizes.length?sizes:["M","L","XL","XXL"],
+      quantity:Math.max(0,Number(quantityText)||0),
+      sku:sku.trim()||p.sku||p.SKU||p.id,
+      description:description.trim()
+    },{merge:true});
     alert("পণ্য আপডেট হয়েছে ✓");
   }catch(e){alert("আপডেট হয়নি: "+e.message)}
 }
