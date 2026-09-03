@@ -99,6 +99,80 @@ header{
   font-weight:bold;
 }
 
+/* MENU DRAWER */
+.menu-drawer{
+  position:fixed;
+  inset:0;
+  background:#0007;
+  z-index:2500;
+  display:none;
+}
+.menu-drawer.show{
+  display:block;
+}
+.menu-box{
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:min(320px,88%);
+  background:#fff;
+  box-shadow:4px 0 15px #0003;
+  overflow:auto;
+}
+.menu-head{
+  background:linear-gradient(135deg,#ff5a00,#ff7a00);
+  color:#fff;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.menu-head strong{
+  font-size:16px;
+}
+.menu-head button{
+  background:transparent;
+  color:#fff;
+  font-size:25px;
+}
+.menu-title{
+  padding:13px 14px 8px;
+  font-size:12px;
+  font-weight:bold;
+  color:#777;
+}
+.menu-categories{
+  padding:5px 10px 15px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+}
+.menu-cat{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:9px;
+  padding:11px 7px;
+  text-align:left;
+  box-shadow:0 2px 5px #0000000a;
+  color:#333;
+  font-size:11px;
+}
+.menu-cat:active{
+  background:#fff0e8;
+  color:#ff5a00;
+}
+.menu-cat .menu-emoji{
+  font-size:23px;
+  margin-bottom:5px;
+}
+.menu-cat.selected{
+  border-color:#ff5a00;
+  background:#fff0e8;
+  color:#ff5a00;
+  font-weight:bold;
+}
+
 /* HERO */
 .container{
   max-width:1100px;
@@ -430,14 +504,44 @@ textarea{
   font-weight:bold;
 }
 
-/* =====================================================
-   INVOICE
-===================================================== */
+/* DELIVERY */
+.delivery-box{
+  background:#fff8f3;
+  border-radius:8px;
+  padding:10px;
+  margin-top:10px;
+}
+.delivery-box select{
+  background:#fff;
+}
+.checkout-total-box{
+  margin-top:10px;
+  background:#f8f8f8;
+  border-radius:8px;
+  padding:10px;
+}
+.checkout-total-row{
+  display:flex;
+  justify-content:space-between;
+  padding:5px 0;
+  font-size:12px;
+}
+.checkout-total-row.grand{
+  border-top:1px solid #ddd;
+  margin-top:5px;
+  padding-top:9px;
+  font-size:14px;
+  font-weight:bold;
+}
+.checkout-total-row.grand span:last-child{
+  color:#ff5a00;
+  font-size:17px;
+}
 
+/* INVOICE */
 .invoice-modal-box{
   width:min(600px,100%);
 }
-
 .invoice-area{
   background:#fff;
   color:#222;
@@ -445,7 +549,6 @@ textarea{
   border:1px solid #eee;
   border-radius:8px;
 }
-
 .invoice-header{
   display:flex;
   justify-content:space-between;
@@ -454,35 +557,29 @@ textarea{
   padding-bottom:14px;
   border-bottom:2px solid #ff5a00;
 }
-
 .invoice-header h2{
   font-size:20px;
   color:#ff5a00;
   margin-bottom:3px;
 }
-
 .invoice-header p{
   font-size:8px;
   letter-spacing:2px;
   color:#888;
 }
-
 .invoice-title{
   text-align:right;
 }
-
 .invoice-title strong{
   display:block;
   font-size:18px;
 }
-
 .invoice-title span{
   display:block;
   color:#777;
   font-size:10px;
   margin-top:3px;
 }
-
 .invoice-success{
   background:#edfff3;
   color:#16a34a;
@@ -493,20 +590,17 @@ textarea{
   margin:12px 0;
   text-align:center;
 }
-
 .invoice-info{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:8px;
   margin-bottom:10px;
 }
-
 .invoice-info div{
   background:#f8f8f8;
   padding:9px;
   border-radius:6px;
 }
-
 .invoice-info span,
 .invoice-address span{
   display:block;
@@ -514,26 +608,22 @@ textarea{
   font-size:9px;
   margin-bottom:4px;
 }
-
 .invoice-info strong,
 .invoice-address strong{
   display:block;
   font-size:11px;
   word-break:break-word;
 }
-
 .invoice-address{
   background:#fff8f3;
   padding:10px;
   border-radius:6px;
   margin-bottom:12px;
 }
-
 .invoice-items h3{
   font-size:13px;
   margin-bottom:7px;
 }
-
 .invoice-item-row{
   display:grid;
   grid-template-columns:1fr auto;
@@ -541,44 +631,46 @@ textarea{
   padding:8px 0;
   border-bottom:1px solid #eee;
 }
-
 .invoice-item-name{
   font-size:11px;
   font-weight:bold;
 }
-
 .invoice-item-details{
   color:#777;
   font-size:9px;
   margin-top:3px;
 }
-
 .invoice-item-price{
   font-size:11px;
   font-weight:bold;
   color:#ff5a00;
   white-space:nowrap;
 }
-
-.invoice-total{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.invoice-summary{
   margin-top:12px;
   padding-top:10px;
   border-top:2px solid #eee;
 }
-
-.invoice-total span{
+.invoice-summary-row{
+  display:flex;
+  justify-content:space-between;
+  padding:5px 0;
+  font-size:11px;
+}
+.invoice-summary-row.grand{
+  border-top:1px solid #ddd;
+  margin-top:4px;
+  padding-top:9px;
   font-size:13px;
   font-weight:bold;
 }
-
-.invoice-total strong{
+.invoice-summary-row.grand strong{
   color:#ff5a00;
   font-size:19px;
 }
-
+.invoice-total{
+  display:none;
+}
 .invoice-footer{
   text-align:center;
   color:#888;
@@ -587,7 +679,6 @@ textarea{
   padding-top:10px;
   border-top:1px dashed #ddd;
 }
-
 .download-invoice-btn{
   width:100%;
   background:#ff5a00;
@@ -597,7 +688,6 @@ textarea{
   margin-top:12px;
   font-weight:bold;
 }
-
 .close-invoice-btn{
   width:100%;
   background:#eee;
@@ -607,16 +697,13 @@ textarea{
   margin-top:7px;
   font-weight:bold;
 }
-
 @media(max-width:450px){
   .invoice-area{
     padding:12px;
   }
-
   .invoice-header h2{
     font-size:17px;
   }
-
   .invoice-title strong{
     font-size:15px;
   }
@@ -648,10 +735,7 @@ textarea{
   display:none;
 }
 
-/* =========================================
-   PRODUCT DETAIL SCREEN
-========================================= */
-
+/* PRODUCT DETAIL */
 .product-detail-modal{
   position:fixed;
   inset:0;
@@ -1039,7 +1123,10 @@ textarea{
 <!-- MAIN HEADER -->
 <header>
   <div class="head">
-    <button class="menu" onclick="showToast('মেনু ফিচার শীঘ্রই আসছে')">☰</button>
+
+    <button class="menu" onclick="openMenu()">
+      ☰
+    </button>
 
     <div class="logo">
       🛍️ ShoppingMall BD
@@ -1047,38 +1134,77 @@ textarea{
     </div>
 
     <div class="search">
-      <input id="searchInput" type="search" placeholder="পণ্য খুঁজুন..." oninput="renderProducts()">
-      <button onclick="renderProducts()">🔍</button>
+      <input id="searchInput"
+             type="search"
+             placeholder="পণ্য খুঁজুন..."
+             oninput="renderProducts()">
+
+      <button onclick="renderProducts()">
+        🔍
+      </button>
     </div>
 
     <div class="head-actions">
-      <button class="head-btn" onclick="openCart()">🛒 <span id="cartCount">0</span></button>
-      <button class="head-btn" onclick="document.getElementById('orderModal').classList.add('show')">📦 অর্ডার</button>
+      <button class="head-btn" onclick="openCart()">
+        🛒 <span id="cartCount">0</span>
+      </button>
+
+      <button class="head-btn"
+              onclick="document.getElementById('orderModal').classList.add('show')">
+        📦 অর্ডার
+      </button>
     </div>
+
   </div>
 </header>
+
+
+<!-- MENU DRAWER -->
+<div id="menuDrawer" class="menu-drawer">
+
+  <div class="menu-box">
+
+    <div class="menu-head">
+      <strong>☰ ক্যাটাগরি মেনু</strong>
+
+      <button onclick="closeMenu()">
+        ×
+      </button>
+    </div>
+
+    <div class="menu-title">
+      ক্যাটাগরি নির্বাচন করুন
+    </div>
+
+    <div id="menuCategories" class="menu-categories"></div>
+
+  </div>
+
+</div>
+
 
 <main class="container">
 
   <!-- HERO -->
   <section class="hero">
+
     <img id="bannerImg"
          src="https://images.unsplash.com/photo-1607082348824-0a96f2a6d1c5?auto=format&fit=crop&w=1400&q=85"
          alt="ShoppingMall BD Banner"
          onerror="this.style.display='none'">
 
     <div class="hero-overlay">
-      <h1 id="bannerTitle">ShoppingMall BD</h1>
-      <p id="bannerText">স্মার্ট শপিং, সেরা দামে।</p>
+      <h1 id="bannerTitle">
+        ShoppingMall BD
+      </h1>
+
+      <p id="bannerText">
+        স্মার্ট শপিং, সেরা দামে।
+      </p>
     </div>
+
   </section>
 
-  <div class="section-title">
-    <h2>ক্যাটাগরি</h2>
-    <span>সব দেখুন</span>
-  </div>
-
-  <section id="categories" class="categories"></section>
 
   <div class="section-title">
     <h2>🔥 জনপ্রিয় পণ্য</h2>
@@ -1089,103 +1215,202 @@ textarea{
 
 </main>
 
+
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-  <button class="active" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-    <b>⌂</b>হোম
+
+  <button class="active"
+          onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <b>⌂</b>
+    হোম
   </button>
 
-  <button onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">
-    <b>▦</b>ক্যাটাগরি
+  <button onclick="openMenu()">
+    <b>▦</b>
+    ক্যাটাগরি
   </button>
 
   <button onclick="openCart()">
-    <b>🛒</b>কার্ট
+    <b>🛒</b>
+    কার্ট
   </button>
 
   <button onclick="document.getElementById('orderModal').classList.add('show')">
-    <b>📦</b>অর্ডার
+    <b>📦</b>
+    অর্ডার
   </button>
+
 </nav>
+
 
 <!-- CART -->
 <div id="cartDrawer" class="cart-drawer">
+
   <div class="cart-box">
 
     <div class="cart-head">
       <strong>🛒 আমার কার্ট</strong>
-      <button onclick="closeCart()">×</button>
+
+      <button onclick="closeCart()">
+        ×
+      </button>
     </div>
 
     <div id="cartItems" class="cart-items"></div>
 
     <div class="cart-foot">
+
       <div class="cart-total">
         <span>মোট</span>
         <span id="cartTotal">৳0</span>
       </div>
 
-      <button class="checkout-btn" onclick="openCheckout()">
+      <button class="checkout-btn"
+              onclick="openCheckout()">
         অর্ডার করুন
       </button>
+
     </div>
 
   </div>
+
 </div>
+
 
 <!-- ORDER MODAL -->
 <div id="orderModal" class="modal">
+
   <div class="modal-box">
 
     <div class="modal-head">
-      <strong>📦 অর্ডার কনফার্ম করুন</strong>
-      <button onclick="closeOrderModal()">×</button>
+
+      <strong>
+        📦 অর্ডার কনফার্ম করুন
+      </strong>
+
+      <button onclick="closeOrderModal()">
+        ×
+      </button>
+
     </div>
 
     <div class="modal-body">
 
       <div id="checkoutSummary"></div>
 
-      <label>আপনার নাম</label>
-      <input id="customerName" type="text" placeholder="আপনার নাম">
 
-      <label>মোবাইল নম্বর</label>
-      <input id="customerPhone" type="tel" placeholder="01XXXXXXXXX">
+      <label>
+        আপনার নাম
+      </label>
 
-      <label>ডেলিভারি ঠিকানা</label>
-      <textarea id="customerAddress" placeholder="সম্পূর্ণ ঠিকানা লিখুন"></textarea>
+      <input id="customerName"
+             type="text"
+             placeholder="আপনার নাম">
 
-      <div class="payment-box">
-        <label>পেমেন্ট পদ্ধতি</label>
-        <select id="payment">
-          <option value="Cash on Delivery">Cash on Delivery</option>
-          <option value="bKash">bKash</option>
-          <option value="Nagad">Nagad</option>
+
+      <label>
+        মোবাইল নম্বর
+      </label>
+
+      <input id="customerPhone"
+             type="tel"
+             placeholder="01XXXXXXXXX">
+
+
+      <label>
+        ডেলিভারি ঠিকানা
+      </label>
+
+      <textarea id="customerAddress"
+                placeholder="সম্পূর্ণ ঠিকানা লিখুন"></textarea>
+
+
+      <!-- DELIVERY AREA -->
+      <div class="delivery-box">
+
+        <label>
+          ডেলিভারি এলাকা
+        </label>
+
+        <select id="deliveryArea"
+                onchange="updateCheckoutTotal()">
+
+          <option value="Dhaka Inside">
+            ঢাকা শহরের ভিতরে — ৳70
+          </option>
+
+          <option value="Dhaka Outside">
+            ঢাকার বাইরে — ৳130
+          </option>
+
         </select>
+
       </div>
 
-      <button class="submit-order" onclick="submitOrder()">
+
+      <!-- CUSTOMER NOTE -->
+      <label>
+        অতিরিক্ত নির্দেশনা (ঐচ্ছিক)
+      </label>
+
+      <textarea id="customerNote"
+                placeholder="যেমন: বাসায় এসে কল করবেন, নির্দিষ্ট সময়ের মধ্যে ডেলিভারি চাই ইত্যাদি"></textarea>
+
+
+      <div class="payment-box">
+
+        <label>
+          পেমেন্ট পদ্ধতি
+        </label>
+
+        <select id="payment">
+
+          <option value="Cash on Delivery">
+            Cash on Delivery
+          </option>
+
+          <option value="bKash">
+            bKash
+          </option>
+
+          <option value="Nagad">
+            Nagad
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <button class="submit-order"
+              onclick="submitOrder()">
+
         অর্ডার কনফার্ম করুন
+
       </button>
 
     </div>
+
   </div>
+
 </div>
 
-<!-- =====================================================
-     INVOICE MODAL
-===================================================== -->
 
+<!-- INVOICE MODAL -->
 <div id="invoiceModal" class="modal">
 
   <div class="modal-box invoice-modal-box">
 
     <div class="modal-head">
-      <strong>🧾 অর্ডার ইনভয়েস</strong>
+
+      <strong>
+        🧾 অর্ডার ইনভয়েস
+      </strong>
 
       <button onclick="closeInvoice()">
         ×
       </button>
+
     </div>
 
     <div class="modal-body">
@@ -1195,22 +1420,34 @@ textarea{
         <div class="invoice-header">
 
           <div>
-            <h2>🛍️ ShoppingMall BD</h2>
-            <p>ONLINE SHOPPING</p>
+            <h2>
+              🛍️ ShoppingMall BD
+            </h2>
+
+            <p>
+              ONLINE SHOPPING
+            </p>
           </div>
 
           <div class="invoice-title">
-            <strong>INVOICE</strong>
+
+            <strong>
+              INVOICE
+            </strong>
+
             <span id="invoiceNumber">
               #SMBD-000000
             </span>
+
           </div>
 
         </div>
+
 
         <div class="invoice-success">
           ✓ আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে
         </div>
+
 
         <div class="invoice-info">
 
@@ -1234,17 +1471,46 @@ textarea{
             <strong id="invoiceDate">—</strong>
           </div>
 
+          <div>
+            <span>Delivery Area</span>
+            <strong id="invoiceDeliveryArea">—</strong>
+          </div>
+
+          <div>
+            <span>Delivery Charge</span>
+            <strong id="invoiceDeliveryCharge">৳0</strong>
+          </div>
+
         </div>
+
 
         <div class="invoice-address">
 
-          <span>Delivery Address</span>
+          <span>
+            Delivery Address
+          </span>
 
           <strong id="invoiceAddress">
             —
           </strong>
 
         </div>
+
+
+        <div class="invoice-address"
+             id="invoiceNoteBox"
+             style="display:none">
+
+          <span>
+            Customer Note
+          </span>
+
+          <strong id="invoiceNote">
+            —
+          </strong>
+
+        </div>
+
 
         <div class="invoice-items">
 
@@ -1256,35 +1522,69 @@ textarea{
 
         </div>
 
-        <div class="invoice-total">
 
-          <span>
-            সর্বমোট
-          </span>
+        <div class="invoice-summary">
 
-          <strong id="invoiceTotal">
-            ৳0
-          </strong>
+          <div class="invoice-summary-row">
+
+            <span>
+              Product Subtotal
+            </span>
+
+            <strong id="invoiceSubtotal">
+              ৳0
+            </strong>
+
+          </div>
+
+
+          <div class="invoice-summary-row">
+
+            <span>
+              Delivery Charge
+            </span>
+
+            <strong id="invoiceDeliveryCharge2">
+              ৳0
+            </strong>
+
+          </div>
+
+
+          <div class="invoice-summary-row grand">
+
+            <span>
+              সর্বমোট
+            </span>
+
+            <strong id="invoiceGrandTotal">
+              ৳0
+            </strong>
+
+          </div>
 
         </div>
 
+
         <div class="invoice-footer">
+
           ধন্যবাদ ShoppingMall BD থেকে কেনাকাটা করার জন্য ❤️
+
         </div>
 
       </div>
 
-      <button
-        class="download-invoice-btn"
-        onclick="downloadInvoicePDF()">
+
+      <button class="download-invoice-btn"
+              onclick="downloadInvoicePDF()">
 
         📄 PDF Download করুন
 
       </button>
 
-      <button
-        class="close-invoice-btn"
-        onclick="closeInvoice()">
+
+      <button class="close-invoice-btn"
+              onclick="closeInvoice()">
 
         বন্ধ করুন
 
@@ -1296,38 +1596,57 @@ textarea{
 
 </div>
 
+
 <!-- PRODUCT DETAIL -->
-<div id="productDetailModal" class="product-detail-modal">
+<div id="productDetailModal"
+     class="product-detail-modal">
 
   <div class="product-detail-box">
 
     <header class="detail-screen-header">
 
-      <button class="detail-menu" onclick="closeProductDetail()">☰</button>
+      <button class="detail-menu"
+              onclick="closeProductDetail()">
+        ☰
+      </button>
 
       <div class="detail-logo">
+
         SHOPPING<span>MALL BD</span>
-        <small> • ONLINE SHOPPING</small>
+
+        <small>
+          • ONLINE SHOPPING
+        </small>
+
       </div>
 
       <button class="detail-balance"
               onclick="showToast('পয়েন্ট ফিচার শীঘ্রই আসছে')">
+
         ৳ পয়েন্ট দেখুন
+
       </button>
 
     </header>
+
 
     <main class="detail-page">
 
       <section class="detail-photo-card">
 
         <div class="detail-photo-wrap">
+
           <div class="detail-image">
-            <img id="detailImage" alt="Product">
+
+            <img id="detailImage"
+                 alt="Product">
+
           </div>
+
         </div>
 
       </section>
+
 
       <section class="detail-form-card">
 
@@ -1335,44 +1654,82 @@ textarea{
           ● ভেরিফাইড প্রোডাক্ট
         </div>
 
-        <h2 class="detail-title" id="detailName">
+
+        <h2 class="detail-title"
+            id="detailName">
+
           পণ্যের নাম
+
         </h2>
+
 
         <div class="detail-meta">
 
           <div class="detail-meta-box">
+
             প্রাইস:
-            <strong id="detailPrice">৳0</strong>
+
+            <strong id="detailPrice">
+              ৳0
+            </strong>
+
           </div>
+
 
           <div class="detail-meta-box stock">
+
             স্টক:
-            <strong id="detailStock">আছে</strong>
+
+            <strong id="detailStock">
+              আছে
+            </strong>
+
           </div>
 
+
           <div class="detail-meta-box rating">
-            <strong id="detailRating">★★★★★</strong>
+
+            <strong id="detailRating">
+              ★★★★★
+            </strong>
+
           </div>
 
         </div>
 
+
         <p class="detail-subtext">
+
           প্রোডাক্টের বিক্রয় মূল্য সর্বোচ্চ
-          <b id="detailSuggested">৳0</b>
+
+          <b id="detailSuggested">
+            ৳0
+          </b>
+
           টাকা।
+
         </p>
 
+
         <p class="detail-sku">
+
           SKU:
-          <span id="detailSku">—</span>
+
+          <span id="detailSku">
+            —
+          </span>
+
         </p>
+
 
         <div class="detail-label">
           সাইজ:
         </div>
 
-        <div id="detailSizes" class="size-list"></div>
+
+        <div id="detailSizes"
+             class="size-list"></div>
+
 
         <div class="detail-row">
 
@@ -1387,7 +1744,9 @@ textarea{
               −
             </button>
 
-            <span id="detailQty">1</span>
+            <span id="detailQty">
+              1
+            </span>
 
             <button class="qty-inline"
                     onclick="changeDetailQty(1)">
@@ -1398,6 +1757,7 @@ textarea{
 
         </div>
 
+
         <div class="detail-row">
 
           <div class="row-label">
@@ -1406,17 +1766,23 @@ textarea{
 
           <div class="detail-input-like detail-price-input"
                id="detailSellingPrice">
+
             ৳0
+
           </div>
 
         </div>
 
+
         <button class="detail-order-list"
                 onclick="orderDetailNow()">
+
           🛒 অর্ডার তালিকায় অ্যাড করুন
+
         </button>
 
       </section>
+
 
       <section class="detail-description-card">
 
@@ -1425,46 +1791,63 @@ textarea{
         </h3>
 
         <p id="detailDescription">
+
           এই পণ্যের বিস্তারিত তথ্য এখানে দেখানো হবে।
+
         </p>
 
       </section>
 
     </main>
 
+
     <nav class="detail-bottom-nav">
 
       <button class="nav-item active"
               onclick="closeProductDetail();window.scrollTo({top:0,behavior:'smooth'})">
+
         <b>⌂</b>
         হোম
+
       </button>
+
 
       <button class="nav-item"
               onclick="showToast('পোস্ট সেকশন শীঘ্রই আসছে')">
+
         <b>▣</b>
         পোস্ট
+
       </button>
+
 
       <button class="nav-item active"
               onclick="showToast('আপনি প্রোডাক্ট পেজে আছেন')">
+
         <b>▱</b>
         প্রোডাক্ট
+
       </button>
+
 
       <button class="nav-item"
               onclick="document.getElementById('orderModal').classList.add('show')">
+
         <b>▣</b>
         ইনবক্স
+
       </button>
 
     </nav>
 
   </div>
+
 </div>
+
 
 <!-- TOAST -->
 <div id="toast" class="toast"></div>
+
 
 <script type="module">
 
@@ -1486,17 +1869,29 @@ from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 ========================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAW2C_q56dFJ",
+
+  apiKey: "AIzaSyAW2C_q56dGFso0rysmZat4AD4SBWdSIG4",
+
   authDomain: "stopping-mall-bd.firebaseapp.com",
+
   projectId: "stopping-mall-bd",
+
   storageBucket: "stopping-mall-bd.firebasestorage.app",
+
   messagingSenderId: "167845214143",
+
   appId: "1:167845214143:web:c0747f4eeab5903eb6530a",
+
   measurementId: "G-ZKTS66SH7X"
+
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+
+const app =
+  initializeApp(firebaseConfig);
+
+const db =
+  getFirestore(app);
 
 
 /* =========================================
@@ -1506,20 +1901,68 @@ const db = getFirestore(app);
 let products = [];
 
 let settings = {
+
   bannerTitle:"ShoppingMall BD",
+
   bannerText:"স্মার্ট শপিং, সেরা দামে।",
-  bannerImage:"https://images.unsplash.com/photo-1607082348824-0a96f2a6d1c5?auto=format&fit=crop&w=1400&q=85"
+
+  bannerImage:
+    "https://images.unsplash.com/photo-1607082348824-0a96f2a6d1c5?auto=format&fit=crop&w=1400&q=85"
+
 };
 
-let cart = JSON.parse(
-  localStorage.getItem("smbd_cart") || "[]"
-);
+let cart =
+  JSON.parse(
+    localStorage.getItem("smbd_cart") || "[]"
+  );
 
 let selectedCat = "সব";
 
 let detailProduct = null;
+
 let detailQuantity = 1;
+
 let detailSelectedSize = "";
+
+
+/* =========================================
+   DELIVERY
+========================================= */
+
+const DELIVERY_CHARGES = {
+
+  "Dhaka Inside":70,
+
+  "Dhaka Outside":130
+
+};
+
+
+function getDeliveryCharge(){
+
+  const area =
+    document.getElementById("deliveryArea");
+
+  if(!area) return 70;
+
+  return Number(
+    DELIVERY_CHARGES[area.value] || 70
+  );
+
+}
+
+
+function getCartSubtotal(){
+
+  return cart.reduce(
+    (s,x) =>
+      s +
+      Number(x.price || 0) *
+      Number(x.qty || 1),
+    0
+  );
+
+}
 
 
 /* =========================================
@@ -1527,16 +1970,22 @@ let detailSelectedSize = "";
 ========================================= */
 
 function save(){
+
   localStorage.setItem(
     "smbd_cart",
     JSON.stringify(cart)
   );
+
 }
 
+
 function money(n){
+
   return "৳" +
     Number(n || 0).toLocaleString("bn-BD");
+
 }
+
 
 function productStock(p){
 
@@ -1547,8 +1996,14 @@ function productStock(p){
     p.quantity !== null &&
     p.quantity !== ""
   ){
-    const n = Number(p.quantity);
-    return Number.isFinite(n) ? n : null;
+
+    const n =
+      Number(p.quantity);
+
+    return Number.isFinite(n)
+      ? n
+      : null;
+
   }
 
   if(
@@ -1556,12 +2011,20 @@ function productStock(p){
     p.stock !== null &&
     p.stock !== ""
   ){
-    const n = Number(p.stock);
-    return Number.isFinite(n) ? n : null;
+
+    const n =
+      Number(p.stock);
+
+    return Number.isFinite(n)
+      ? n
+      : null;
+
   }
 
   return null;
+
 }
+
 
 function productSizes(p){
 
@@ -1573,26 +2036,167 @@ function productSizes(p){
     [];
 
   if(Array.isArray(sizes)){
-    sizes = sizes
-      .map(x => String(x).trim())
-      .filter(Boolean);
+
+    sizes =
+      sizes
+        .map(x => String(x).trim())
+        .filter(Boolean);
+
   }
   else if(typeof sizes === "string"){
-    sizes = sizes
-      .split(",")
-      .map(x => x.trim())
-      .filter(Boolean);
+
+    sizes =
+      sizes
+        .split(",")
+        .map(x => x.trim())
+        .filter(Boolean);
+
   }
   else{
+
     sizes = [];
+
   }
 
   if(!sizes.length){
-    sizes = ["M","L","XL","XXL"];
+
+    sizes = [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ];
+
   }
 
   return sizes;
+
 }
+
+
+/* =========================================
+   MENU
+========================================= */
+
+function openMenu(){
+
+  renderMenuCategories();
+
+  document
+    .getElementById("menuDrawer")
+    .classList.add("show");
+
+  document.body.style.overflow = "hidden";
+
+}
+
+window.openMenu = openMenu;
+
+
+function closeMenu(){
+
+  document
+    .getElementById("menuDrawer")
+    .classList.remove("show");
+
+  if(
+    !document
+      .getElementById("productDetailModal")
+      .classList.contains("show") &&
+    !document
+      .getElementById("invoiceModal")
+      .classList.contains("show")
+  ){
+
+    document.body.style.overflow = "";
+
+  }
+
+}
+
+window.closeMenu = closeMenu;
+
+
+function renderMenuCategories(){
+
+  const cats = [
+
+    "সব",
+    "ফ্যাশন",
+    "কিডস",
+    "বেবি",
+    "ইলেকট্রনিক্স",
+    "হোম",
+    "বিউটি",
+    "অ্যাক্সেসরিজ"
+
+  ];
+
+  const icons = [
+
+    "🛍️",
+    "👕",
+    "🧸",
+    "👶",
+    "📱",
+    "🏠",
+    "💄",
+    "🎒"
+
+  ];
+
+  const box =
+    document.getElementById("menuCategories");
+
+  box.innerHTML =
+    cats.map((c,i) => `
+
+      <button
+        class="menu-cat ${
+          c === selectedCat
+            ? "selected"
+            : ""
+        }"
+        onclick="selectMenuCategory('${c}')">
+
+        <div class="menu-emoji">
+          ${icons[i]}
+        </div>
+
+        ${c}
+
+      </button>
+
+    `).join("");
+
+}
+
+
+function selectMenuCategory(c){
+
+  selectedCat = c;
+
+  renderProducts();
+
+  renderMenuCategories();
+
+  closeMenu();
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  showToast(
+    c === "সব"
+      ? "সব পণ্য দেখানো হচ্ছে"
+      : c + " ক্যাটাগরি নির্বাচিত"
+  );
+
+}
+
+window.selectMenuCategory =
+  selectMenuCategory;
 
 
 /* =========================================
@@ -1613,60 +2217,23 @@ function renderSettings(){
   document.getElementById("bannerImg")
     .src =
       settings.bannerImage || "";
+
 }
 
 
 /* =========================================
    CATEGORIES
+   Kept internally for Firebase/category logic.
 ========================================= */
 
 function renderCategories(){
 
-  const cats = [
-    "সব",
-    "ফ্যাশন",
-    "কিডস",
-    "বেবি",
-    "ইলেকট্রনিক্স",
-    "হোম",
-    "বিউটি",
-    "অ্যাক্সেসরিজ"
-  ];
+  renderMenuCategories();
 
-  const icons = [
-    "🛍️",
-    "👕",
-    "🧸",
-    "👶",
-    "📱",
-    "🏠",
-    "💄",
-    "🎒"
-  ];
-
-  document.getElementById("categories").innerHTML =
-    cats.map((c,i) => `
-      <button class="cat"
-              onclick="filterCat('${c}')">
-
-        <div class="emoji">
-          ${icons[i]}
-        </div>
-
-        <span>${c}</span>
-
-      </button>
-    `).join("");
 }
 
-function filterCat(c){
-
-  selectedCat = c;
-
-  renderProducts();
-}
-
-window.filterCat = filterCat;
+window.renderCategories =
+  renderCategories;
 
 
 /* =========================================
@@ -1681,25 +2248,37 @@ function renderProducts(){
         .value || ""
     ).toLowerCase();
 
+
   const list =
     products.filter(p =>
+
       (
         selectedCat === "সব" ||
         p.category === selectedCat
-      ) &&
+      )
+
+      &&
+
       String(p.name || "")
         .toLowerCase()
         .includes(q)
+
     );
+
 
   document.getElementById("productTotal")
     .textContent =
-      list.length + " টি পণ্য";
+      list.length +
+      " টি পণ্য";
+
 
   document.getElementById("products")
     .innerHTML =
+
       list.length
+
       ?
+
       list.map(p => `
 
         <article
@@ -1720,18 +2299,24 @@ function renderProducts(){
 
           </div>
 
+
           <div class="card-body">
 
             <div class="card-title">
               ${p.name || ""}
             </div>
 
+
             <div class="rating">
+
               ★★★★★
+
               <span style="color:#777">
                 (${p.rating || 5})
               </span>
+
             </div>
+
 
             <div class="price">
 
@@ -1745,18 +2330,24 @@ function renderProducts(){
 
             </div>
 
+
             <div class="actions">
 
               <button
                 class="add"
                 onclick="event.stopPropagation();addCart('${p.id}')">
+
                 🛒 কার্ট
+
               </button>
+
 
               <button
                 class="order"
                 onclick="event.stopPropagation();buyNow('${p.id}')">
+
                 অর্ডার করুন
+
               </button>
 
             </div>
@@ -1770,10 +2361,15 @@ function renderProducts(){
       :
 
       `
+
         <div class="empty">
+
           এই ক্যাটাগরিতে কোনো পণ্য পাওয়া যায়নি।
+
         </div>
+
       `;
+
 }
 
 
@@ -1781,20 +2377,29 @@ function renderProducts(){
    CART
 ========================================= */
 
-function addCart(id,size=null,qty=1){
+function addCart(
+  id,
+  size=null,
+  qty=1
+){
 
   const p =
-    products.find(x => x.id === id);
+    products.find(
+      x => x.id === id
+    );
 
   if(!p) return;
 
+
   const availableSizes =
     productSizes(p);
+
 
   const chosenSize =
     size ||
     availableSizes[0] ||
     "";
+
 
   const item =
     cart.find(
@@ -1804,28 +2409,39 @@ function addCart(id,size=null,qty=1){
         String(chosenSize || "")
     );
 
+
   if(item){
 
     item.qty += qty;
 
-  }else{
+  }
+  else{
 
     cart.push({
+
       ...p,
+
       qty:qty,
+
       size:chosenSize
+
     });
 
   }
+
 
   save();
 
   updateCart();
 
-  showToast("কার্টে যোগ হয়েছে ✓");
+  showToast(
+    "কার্টে যোগ হয়েছে ✓"
+  );
+
 }
 
-window.addCart = addCart;
+window.addCart =
+  addCart;
 
 
 function buyNow(id){
@@ -1835,9 +2451,11 @@ function buyNow(id){
   addCart(id);
 
   openCheckout();
+
 }
 
-window.buyNow = buyNow;
+window.buyNow =
+  buyNow;
 
 
 function updateCart(){
@@ -1845,36 +2463,51 @@ function updateCart(){
   const count =
     cart.reduce(
       (sum,x) =>
-        sum + Number(x.qty || 0),
+        sum +
+        Number(x.qty || 0),
       0
     );
 
+
   document.getElementById("cartCount")
-    .textContent = count;
+    .textContent =
+      count;
+
 
   const box =
     document.getElementById("cartItems");
 
+
   if(!cart.length){
 
     box.innerHTML = `
+
       <div style="
         text-align:center;
         padding:40px 15px;
         color:#888;
       ">
+
         🛒<br><br>
+
         আপনার কার্ট খালি।
+
       </div>
+
     `;
 
+
     document.getElementById("cartTotal")
-      .textContent = "৳0";
+      .textContent =
+        "৳0";
 
     return;
+
   }
 
+
   let total = 0;
+
 
   box.innerHTML =
     cart.map((x,index) => {
@@ -1883,7 +2516,9 @@ function updateCart(){
         Number(x.price || 0) *
         Number(x.qty || 1);
 
+
       total += itemTotal;
+
 
       return `
 
@@ -1894,11 +2529,13 @@ function updateCart(){
             alt="${x.name || ""}"
             onerror="this.style.display='none'">
 
+
           <div class="cart-info">
 
             <h4>
               ${x.name || ""}
             </h4>
+
 
             ${
               x.size
@@ -1910,9 +2547,11 @@ function updateCart(){
               ""
             }
 
+
             <p>
               ${money(x.price)}
             </p>
+
 
             <div class="cart-controls">
 
@@ -1922,12 +2561,16 @@ function updateCart(){
                   -1,
                   '${String(x.size || "").replace(/'/g,"\\'")}'
                 )">
+
                 −
+
               </button>
+
 
               <strong>
                 ${x.qty}
               </strong>
+
 
               <button
                 onclick="changeQty(
@@ -1935,8 +2578,11 @@ function updateCart(){
                   1,
                   '${String(x.size || "").replace(/'/g,"\\'")}'
                 )">
+
                 +
+
               </button>
+
 
               <button
                 class="remove"
@@ -1944,28 +2590,39 @@ function updateCart(){
                   '${x.id}',
                   '${String(x.size || "").replace(/'/g,"\\'")}'
                 )">
+
                 🗑
+
               </button>
 
             </div>
 
           </div>
 
+
           <strong>
             ${money(itemTotal)}
           </strong>
 
         </div>
+
       `;
 
     }).join("");
 
+
   document.getElementById("cartTotal")
-    .textContent = money(total);
+    .textContent =
+      money(total);
+
 }
 
 
-function changeQty(id,n,size=""){
+function changeQty(
+  id,
+  n,
+  size=""
+){
 
   const item =
     cart.find(
@@ -1975,9 +2632,12 @@ function changeQty(id,n,size=""){
         String(size || "")
     );
 
+
   if(!item) return;
 
+
   item.qty += n;
+
 
   if(item.qty <= 0){
 
@@ -1993,15 +2653,21 @@ function changeQty(id,n,size=""){
 
   }
 
+
   save();
 
   updateCart();
+
 }
 
-window.changeQty = changeQty;
+window.changeQty =
+  changeQty;
 
 
-function removeCart(id,size=""){
+function removeCart(
+  id,
+  size=""
+){
 
   cart =
     cart.filter(
@@ -2013,34 +2679,41 @@ function removeCart(id,size=""){
         )
     );
 
+
   save();
 
   updateCart();
+
 }
 
-window.removeCart = removeCart;
+window.removeCart =
+  removeCart;
 
 
 function openCart(){
 
   updateCart();
 
-  document.getElementById("cartDrawer")
+  document
+    .getElementById("cartDrawer")
     .classList.add("show");
 
 }
 
-window.openCart = openCart;
+window.openCart =
+  openCart;
 
 
 function closeCart(){
 
-  document.getElementById("cartDrawer")
+  document
+    .getElementById("cartDrawer")
     .classList.remove("show");
 
 }
 
-window.closeCart = closeCart;
+window.closeCart =
+  closeCart;
 
 
 /* =========================================
@@ -2051,15 +2724,23 @@ function openCheckout(){
 
   if(!cart.length){
 
-    showToast("কার্টে কোনো পণ্য নেই");
+    showToast(
+      "কার্টে কোনো পণ্য নেই"
+    );
 
     return;
+
   }
+
 
   closeCart();
 
+
   const summary =
-    document.getElementById("checkoutSummary");
+    document.getElementById(
+      "checkoutSummary"
+    );
+
 
   summary.innerHTML = `
 
@@ -2074,6 +2755,7 @@ function openCheckout(){
 
       ${
         cart.map(x => `
+
           <div style="
             display:flex;
             justify-content:space-between;
@@ -2084,65 +2766,168 @@ function openCheckout(){
           ">
 
             <span>
+
               ${x.name}
+
               ${
                 x.size
                 ? `<br>সাইজ: ${x.size}`
                 : ""
               }
+
               × ${x.qty}
+
             </span>
 
+
             <strong>
+
               ${money(
                 Number(x.price || 0) *
                 Number(x.qty || 1)
               )}
+
             </strong>
 
           </div>
+
         `).join("")
       }
-
-      <div style="
-        display:flex;
-        justify-content:space-between;
-        margin-top:9px;
-        font-size:13px;
-      ">
-        <b>মোট</b>
-        <b style="color:#ff5a00">
-          ${money(
-            cart.reduce(
-              (s,x) =>
-                s +
-                Number(x.price || 0) *
-                Number(x.qty || 1),
-              0
-            )
-          )}
-        </b>
-      </div>
 
     </div>
 
   `;
 
-  document.getElementById("orderModal")
+
+  const area =
+    document.getElementById(
+      "deliveryArea"
+    );
+
+  if(area){
+
+    area.value =
+      "Dhaka Inside";
+
+  }
+
+
+  updateCheckoutTotal();
+
+
+  document
+    .getElementById("orderModal")
     .classList.add("show");
+
 }
 
-window.openCheckout = openCheckout;
+window.openCheckout =
+  openCheckout;
+
+
+function updateCheckoutTotal(){
+
+  const subtotal =
+    getCartSubtotal();
+
+  const delivery =
+    getDeliveryCharge();
+
+  const grand =
+    subtotal + delivery;
+
+
+  const box =
+    document.getElementById(
+      "checkoutSummary"
+    );
+
+
+  if(!box) return;
+
+
+  let totalBox =
+    document.getElementById(
+      "checkoutTotalBox"
+    );
+
+
+  if(!totalBox){
+
+    totalBox =
+      document.createElement("div");
+
+    totalBox.id =
+      "checkoutTotalBox";
+
+    totalBox.className =
+      "checkout-total-box";
+
+    box.appendChild(
+      totalBox
+    );
+
+  }
+
+
+  totalBox.innerHTML = `
+
+    <div class="checkout-total-row">
+
+      <span>
+        Product Subtotal
+      </span>
+
+      <strong>
+        ${money(subtotal)}
+      </strong>
+
+    </div>
+
+
+    <div class="checkout-total-row">
+
+      <span>
+        Delivery Charge
+      </span>
+
+      <strong>
+        ${money(delivery)}
+      </strong>
+
+    </div>
+
+
+    <div class="checkout-total-row grand">
+
+      <span>
+        সর্বমোট
+      </span>
+
+      <span>
+        ${money(grand)}
+      </span>
+
+    </div>
+
+  `;
+
+}
+
+window.updateCheckoutTotal =
+  updateCheckoutTotal;
 
 
 function closeOrderModal(){
 
-  document.getElementById("orderModal")
+  document
+    .getElementById("orderModal")
     .classList.remove("show");
 
 }
 
-window.closeOrderModal = closeOrderModal;
+window.closeOrderModal =
+  closeOrderModal;
 
 
 /* =========================================
@@ -2153,26 +2938,50 @@ async function submitOrder(){
 
   if(!cart.length){
 
-    showToast("কার্টে কোনো পণ্য নেই");
+    showToast(
+      "কার্টে কোনো পণ্য নেই"
+    );
 
     return;
+
   }
 
+
   const name =
-    document.getElementById("customerName")
+    document
+      .getElementById("customerName")
       .value.trim();
+
 
   const phone =
-    document.getElementById("customerPhone")
+    document
+      .getElementById("customerPhone")
       .value.trim();
+
 
   const address =
-    document.getElementById("customerAddress")
+    document
+      .getElementById("customerAddress")
       .value.trim();
 
+
   const payment =
-    document.getElementById("payment")
+    document
+      .getElementById("payment")
       .value;
+
+
+  const deliveryArea =
+    document
+      .getElementById("deliveryArea")
+      .value;
+
+
+  const customerNote =
+    document
+      .getElementById("customerNote")
+      .value.trim();
+
 
   if(!name || !phone || !address){
 
@@ -2181,19 +2990,32 @@ async function submitOrder(){
     );
 
     return;
+
   }
 
-  const total =
-    cart.reduce(
-      (s,x) =>
-        s +
-        Number(x.price || 0) *
-        Number(x.qty || 1),
-      0
+
+  const subtotal =
+    getCartSubtotal();
+
+
+  const deliveryCharge =
+    Number(
+      DELIVERY_CHARGES[
+        deliveryArea
+      ] || 0
     );
 
+
+  const grandTotal =
+    subtotal +
+    deliveryCharge;
+
+
   const orderDate =
-    new Date().toLocaleString("bn-BD");
+    new Date().toLocaleString(
+      "bn-BD"
+    );
+
 
   const order = {
 
@@ -2201,23 +3023,44 @@ async function submitOrder(){
 
     createdAt:Date.now(),
 
+
     customer:{
+
       name:name,
+
       phone:phone,
+
       address:address,
-      payment:payment
+
+      payment:payment,
+
+      note:customerNote
+
     },
 
+
+    deliveryArea:
+      deliveryArea,
+
+    deliveryCharge:
+      deliveryCharge,
+
+
     items:
+
       cart.map(x => ({
 
         id:x.id,
 
         name:x.name,
 
-        price:Number(x.price || 0),
+        price:Number(
+          x.price || 0
+        ),
 
-        qty:Number(x.qty || 1),
+        qty:Number(
+          x.qty || 1
+        ),
 
         size:
           x.size ||
@@ -2237,10 +3080,20 @@ async function submitOrder(){
 
       })),
 
-    total:total,
 
-    status:"নতুন"
+    subtotal:
+      subtotal,
+
+
+    total:
+      grandTotal,
+
+
+    status:
+      "নতুন"
+
   };
+
 
   try{
 
@@ -2253,9 +3106,7 @@ async function submitOrder(){
       );
 
 
-    /* =====================================
-       CREATE INVOICE
-    ===================================== */
+    /* INVOICE NUMBER */
 
     const invoiceNo =
       "SMBD-" +
@@ -2263,40 +3114,111 @@ async function submitOrder(){
         .substring(0,8)
         .toUpperCase();
 
-    document.getElementById("invoiceNumber")
+
+    document
+      .getElementById("invoiceNumber")
       .textContent =
         "#" + invoiceNo;
 
-    document.getElementById("invoiceCustomerName")
+
+    document
+      .getElementById("invoiceCustomerName")
       .textContent =
         name;
 
-    document.getElementById("invoiceCustomerPhone")
+
+    document
+      .getElementById("invoiceCustomerPhone")
       .textContent =
         phone;
 
-    document.getElementById("invoicePayment")
+
+    document
+      .getElementById("invoicePayment")
       .textContent =
         payment;
 
-    document.getElementById("invoiceDate")
+
+    document
+      .getElementById("invoiceDate")
       .textContent =
         orderDate;
 
-    document.getElementById("invoiceAddress")
+
+    document
+      .getElementById("invoiceAddress")
       .textContent =
         address;
 
-    document.getElementById("invoiceTotal")
+
+    document
+      .getElementById("invoiceDeliveryArea")
       .textContent =
-        money(total);
+        deliveryArea;
 
 
-    /* =====================================
-       INVOICE ITEMS
-    ===================================== */
+    document
+      .getElementById("invoiceDeliveryCharge")
+      .textContent =
+        money(deliveryCharge);
 
-    document.getElementById("invoiceItems")
+
+    document
+      .getElementById("invoiceDeliveryCharge2")
+      .textContent =
+        money(deliveryCharge);
+
+
+    document
+      .getElementById("invoiceSubtotal")
+      .textContent =
+        money(subtotal);
+
+
+    document
+      .getElementById("invoiceGrandTotal")
+      .textContent =
+        money(grandTotal);
+
+
+    /* CUSTOMER NOTE */
+
+    const noteBox =
+      document.getElementById(
+        "invoiceNoteBox"
+      );
+
+
+    const noteText =
+      document.getElementById(
+        "invoiceNote"
+      );
+
+
+    if(customerNote){
+
+      noteText.textContent =
+        customerNote;
+
+      noteBox.style.display =
+        "block";
+
+    }
+    else{
+
+      noteText.textContent =
+        "—";
+
+      noteBox.style.display =
+        "none";
+
+    }
+
+
+    /* INVOICE ITEMS */
+
+    document
+      .getElementById("invoiceItems")
       .innerHTML =
 
       cart.map(x => {
@@ -2304,6 +3226,7 @@ async function submitOrder(){
         const itemTotal =
           Number(x.price || 0) *
           Number(x.qty || 1);
+
 
         return `
 
@@ -2315,9 +3238,11 @@ async function submitOrder(){
                 ${x.name || "পণ্য"}
               </div>
 
+
               <div class="invoice-item-details">
 
-                Qty: ${x.qty || 1}
+                Qty:
+                ${x.qty || 1}
 
                 ${
                   x.size
@@ -2335,6 +3260,7 @@ async function submitOrder(){
 
             </div>
 
+
             <div class="invoice-item-price">
 
               ${money(itemTotal)}
@@ -2348,9 +3274,7 @@ async function submitOrder(){
       }).join("");
 
 
-    /* =====================================
-       CLEAR CART
-    ===================================== */
+    /* CLEAR CART */
 
     cart = [];
 
@@ -2361,14 +3285,30 @@ async function submitOrder(){
 
     /* CLEAR FORM */
 
-    document.getElementById("customerName")
+    document
+      .getElementById("customerName")
       .value = "";
 
-    document.getElementById("customerPhone")
+
+    document
+      .getElementById("customerPhone")
       .value = "";
 
-    document.getElementById("customerAddress")
+
+    document
+      .getElementById("customerAddress")
       .value = "";
+
+
+    document
+      .getElementById("customerNote")
+      .value = "";
+
+
+    document
+      .getElementById("deliveryArea")
+      .value =
+        "Dhaka Inside";
 
 
     /* CLOSE ORDER */
@@ -2378,14 +3318,17 @@ async function submitOrder(){
 
     /* OPEN INVOICE */
 
-    document.getElementById("invoiceModal")
+    document
+      .getElementById("invoiceModal")
       .classList.add("show");
+
 
     document.body.style.overflow =
       "hidden";
 
 
-  }catch(e){
+  }
+  catch(e){
 
     console.error(e);
 
@@ -2395,6 +3338,7 @@ async function submitOrder(){
     );
 
   }
+
 }
 
 window.submitOrder =
@@ -2407,7 +3351,8 @@ window.submitOrder =
 
 function closeInvoice(){
 
-  document.getElementById("invoiceModal")
+  document
+    .getElementById("invoiceModal")
     .classList.remove("show");
 
   document.body.style.overflow =
@@ -2426,18 +3371,27 @@ window.closeInvoice =
 async function downloadInvoicePDF(){
 
   const invoice =
-    document.getElementById("invoiceArea");
+    document.getElementById(
+      "invoiceArea"
+    );
+
 
   if(!invoice){
 
-    showToast("Invoice পাওয়া যায়নি");
+    showToast(
+      "Invoice পাওয়া যায়নি"
+    );
 
     return;
+
   }
+
 
   try{
 
-    showToast("PDF তৈরি হচ্ছে...");
+    showToast(
+      "PDF তৈরি হচ্ছে..."
+    );
 
 
     const canvas =
@@ -2452,7 +3406,11 @@ async function downloadInvoicePDF(){
 
 
     const imgData =
-      canvas.toDataURL("image/jpeg",0.95);
+      canvas.toDataURL(
+        "image/jpeg",
+        0.95
+      );
+
 
     const {
       jsPDF
@@ -2462,26 +3420,37 @@ async function downloadInvoicePDF(){
 
     const pdf =
       new jsPDF({
+
         orientation:"portrait",
+
         unit:"mm",
+
         format:"a4"
+
       });
 
 
     const pageWidth =
-      pdf.internal.pageSize.getWidth();
+      pdf.internal.pageSize
+        .getWidth();
+
 
     const pageHeight =
-      pdf.internal.pageSize.getHeight();
+      pdf.internal.pageSize
+        .getHeight();
+
 
     const margin = 8;
+
 
     const usableWidth =
       pageWidth -
       margin * 2;
 
+
     const imgWidth =
       usableWidth;
+
 
     const imgHeight =
       canvas.height *
@@ -2492,18 +3461,27 @@ async function downloadInvoicePDF(){
     let heightLeft =
       imgHeight;
 
+
     let position =
       margin;
 
 
     pdf.addImage(
+
       imgData,
+
       "JPEG",
+
       margin,
+
       position,
+
       imgWidth,
+
       imgHeight
+
     );
+
 
     heightLeft -=
       pageHeight -
@@ -2519,16 +3497,26 @@ async function downloadInvoicePDF(){
           margin * 2
         );
 
+
       pdf.addPage();
 
+
       pdf.addImage(
+
         imgData,
+
         "JPEG",
+
         margin,
+
         position,
+
         imgWidth,
+
         imgHeight
+
       );
+
 
       heightLeft -=
         pageHeight -
@@ -2538,7 +3526,10 @@ async function downloadInvoicePDF(){
 
 
     const invoiceNumber =
-      document.getElementById("invoiceNumber")
+      document
+        .getElementById(
+          "invoiceNumber"
+        )
         .textContent
         .replace("#","")
         .trim();
@@ -2550,20 +3541,26 @@ async function downloadInvoicePDF(){
     );
 
 
-    showToast("PDF Download হয়েছে ✓");
+    showToast(
+      "PDF Download হয়েছে ✓"
+    );
 
-  }catch(error){
+
+  }
+  catch(error){
 
     console.error(
       "PDF Error:",
       error
     );
 
+
     alert(
       "PDF তৈরি করা যায়নি। আবার চেষ্টা করুন।"
     );
 
   }
+
 }
 
 window.downloadInvoicePDF =
@@ -2577,63 +3574,94 @@ window.downloadInvoicePDF =
 function openProductDetail(id){
 
   const p =
-    products.find(x => x.id === id);
+    products.find(
+      x => x.id === id
+    );
+
 
   if(!p) return;
 
-  detailProduct = p;
 
-  detailQuantity = 1;
+  detailProduct =
+    p;
+
+
+  detailQuantity =
+    1;
+
 
   const sizes =
     productSizes(p);
 
+
   detailSelectedSize =
     sizes[0] || "";
 
-  document.getElementById("detailImage")
+
+  document
+    .getElementById("detailImage")
     .src =
       p.image || "";
 
-  document.getElementById("detailName")
+
+  document
+    .getElementById("detailName")
     .textContent =
       p.name || "";
 
-  document.getElementById("detailRating")
+
+  document
+    .getElementById("detailRating")
     .textContent =
       "★★★★★";
 
-  document.getElementById("detailPrice")
+
+  document
+    .getElementById("detailPrice")
     .textContent =
       money(p.price);
 
-  document.getElementById("detailSuggested")
+
+  document
+    .getElementById("detailSuggested")
     .textContent =
       money(
         p.oldPrice ||
         p.price
       );
 
-  document.getElementById("detailSellingPrice")
+
+  document
+    .getElementById("detailSellingPrice")
     .textContent =
       money(p.price);
 
-  document.getElementById("detailSku")
+
+  document
+    .getElementById("detailSku")
     .textContent =
       p.sku ||
       p.SKU ||
       p.id ||
       "—";
 
+
   const stock =
     productStock(p);
 
-  document.getElementById("detailStock")
+
+  document
+    .getElementById("detailStock")
     .textContent =
+
       stock === null
+
       ?
+
       "আছে"
+
       :
+
       (
         stock > 0
         ?
@@ -2642,19 +3670,25 @@ function openProductDetail(id){
         "নেই"
       );
 
-  document.getElementById("detailSizes")
+
+  document
+    .getElementById("detailSizes")
     .innerHTML =
+
       sizes.map(
         (s,i) => `
 
           <button
+
             data-size="${String(s)
               .replace(/"/g,'&quot;')}"
+
             class="size-btn ${
               s === detailSelectedSize
               ? "selected"
               : ""
             }"
+
             onclick="selectDetailSize('${String(s)
               .replace(/'/g,"\\'")}')">
 
@@ -2665,21 +3699,29 @@ function openProductDetail(id){
         `
       ).join("");
 
-  document.getElementById("detailQty")
+
+  document
+    .getElementById("detailQty")
     .textContent =
       detailQuantity;
 
-  document.getElementById("detailDescription")
+
+  document
+    .getElementById("detailDescription")
     .textContent =
       p.description ||
       p.details ||
       "প্রিমিয়াম কোয়ালিটি পণ্য। ভালোভাবে প্যাকেজিং করে দ্রুত ডেলিভারি করা হবে।";
 
-  document.getElementById("productDetailModal")
+
+  document
+    .getElementById("productDetailModal")
     .classList.add("show");
+
 
   document.body.style.overflow =
     "hidden";
+
 }
 
 window.openProductDetail =
@@ -2688,19 +3730,28 @@ window.openProductDetail =
 
 function selectDetailSize(size){
 
-  detailSelectedSize = size;
+  detailSelectedSize =
+    size;
 
-  document.querySelectorAll(
-    "#detailSizes .size-btn"
-  ).forEach(btn => {
 
-    btn.classList.toggle(
-      "selected",
-      btn.getAttribute("data-size") ===
-      String(size)
-    );
+  document
+    .querySelectorAll(
+      "#detailSizes .size-btn"
+    )
+    .forEach(btn => {
 
-  });
+      btn.classList.toggle(
+
+        "selected",
+
+        btn.getAttribute(
+          "data-size"
+        ) ===
+        String(size)
+
+      );
+
+    });
 
 }
 
@@ -2712,24 +3763,41 @@ function changeDetailQty(n){
 
   detailQuantity += n;
 
+
   if(detailQuantity < 1){
+
     detailQuantity = 1;
+
   }
+
 
   const stock =
-    productStock(detailProduct);
+    productStock(
+      detailProduct
+    );
+
 
   if(
+
     stock !== null &&
+
     stock > 0 &&
+
     detailQuantity > stock
+
   ){
-    detailQuantity = stock;
+
+    detailQuantity =
+      stock;
+
   }
 
-  document.getElementById("detailQty")
+
+  document
+    .getElementById("detailQty")
     .textContent =
       detailQuantity;
+
 }
 
 window.changeDetailQty =
@@ -2738,8 +3806,10 @@ window.changeDetailQty =
 
 function closeProductDetail(){
 
-  document.getElementById("productDetailModal")
+  document
+    .getElementById("productDetailModal")
     .classList.remove("show");
+
 
   document.body.style.overflow =
     "";
@@ -2758,33 +3828,49 @@ function orderDetailNow(){
 
   if(!detailProduct) return;
 
-  const p = detailProduct;
+
+  const p =
+    detailProduct;
+
 
   const availableSizes =
     productSizes(p);
+
 
   const size =
     detailSelectedSize ||
     availableSizes[0] ||
     "";
 
+
   const stock =
     productStock(p);
 
+
   if(stock === 0){
 
-    showToast("এই পণ্যটি স্টকে নেই");
+    showToast(
+      "এই পণ্যটি স্টকে নেই"
+    );
 
     return;
+
   }
+
 
   cart = [];
 
+
   cart.push({
+
     ...p,
+
     qty:detailQuantity,
+
     size:size
+
   });
+
 
   save();
 
@@ -2793,6 +3879,7 @@ function orderDetailNow(){
   closeProductDetail();
 
   openCheckout();
+
 }
 
 window.orderDetailNow =
@@ -2807,28 +3894,40 @@ function toggleFavoriteDetail(){
 
   if(!detailProduct) return;
 
+
   const key =
     "smbd_fav_" +
     detailProduct.id;
 
+
   const current =
     localStorage.getItem(key);
 
+
   if(current){
 
-    localStorage.removeItem(key);
+    localStorage.removeItem(
+      key
+    );
 
-    showToast("ফেভারিট থেকে সরানো হয়েছে");
+    showToast(
+      "ফেভারিট থেকে সরানো হয়েছে"
+    );
 
-  }else{
+  }
+  else{
 
     localStorage.setItem(
       key,
       "1"
     );
 
-    showToast("ফেভারিটে যোগ হয়েছে ❤️");
+    showToast(
+      "ফেভারিটে যোগ হয়েছে ❤️"
+    );
+
   }
+
 }
 
 window.toggleFavoriteDetail =
@@ -2843,38 +3942,61 @@ function downloadDetailImage(){
 
   if(!detailProduct) return;
 
+
   const url =
     detailProduct.image;
 
+
   if(!url){
 
-    showToast("ছবি পাওয়া যায়নি");
+    showToast(
+      "ছবি পাওয়া যায়নি"
+    );
 
     return;
+
   }
+
 
   const a =
     document.createElement("a");
 
-  a.href = url;
 
-  a.target = "_blank";
+  a.href =
+    url;
 
-  a.rel = "noopener";
+
+  a.target =
+    "_blank";
+
+
+  a.rel =
+    "noopener";
+
 
   a.download =
     (
       detailProduct.name ||
       "product"
-    ) + ".jpg";
+    ) +
+    ".jpg";
 
-  document.body.appendChild(a);
+
+  document.body.appendChild(
+    a
+  );
+
 
   a.click();
 
+
   a.remove();
 
-  showToast("ছবি ওপেন করা হয়েছে");
+
+  showToast(
+    "ছবি ওপেন করা হয়েছে"
+  );
+
 }
 
 window.downloadDetailImage =
@@ -2887,25 +4009,41 @@ window.downloadDetailImage =
 
 let toastTimer;
 
+
 function showToast(message){
 
   const toast =
-    document.getElementById("toast");
+    document.getElementById(
+      "toast"
+    );
+
 
   toast.textContent =
     message;
 
-  toast.classList.add("show");
 
-  clearTimeout(toastTimer);
+  toast.classList.add(
+    "show"
+  );
+
+
+  clearTimeout(
+    toastTimer
+  );
+
 
   toastTimer =
     setTimeout(
       () => {
-        toast.classList.remove("show");
+
+        toast.classList.remove(
+          "show"
+        );
+
       },
       2200
     );
+
 }
 
 window.showToast =
@@ -2917,16 +4055,25 @@ window.showToast =
 ========================================= */
 
 onSnapshot(
-  collection(db,"products"),
+
+  collection(
+    db,
+    "products"
+  ),
+
   snapshot => {
 
     products =
       snapshot.docs.map(
         d => ({
+
           id:d.id,
+
           ...d.data()
+
         })
       );
+
 
     renderCategories();
 
@@ -2935,6 +4082,8 @@ onSnapshot(
     updateCart();
 
   },
+
+
   error => {
 
     console.error(
@@ -2942,14 +4091,23 @@ onSnapshot(
       error
     );
 
-    document.getElementById("products")
+
+    document
+      .getElementById("products")
       .innerHTML = `
+
         <div class="empty">
+
           পণ্য লোড করা যাচ্ছে না।<br>
+
           Firebase connection check করুন।
+
         </div>
+
       `;
+
   }
+
 );
 
 
@@ -2958,21 +4116,33 @@ onSnapshot(
 ========================================= */
 
 onSnapshot(
-  doc(db,"settings","main"),
+
+  doc(
+    db,
+    "settings",
+    "main"
+  ),
+
   snapshot => {
 
     if(snapshot.exists()){
 
       settings = {
+
         ...settings,
+
         ...snapshot.data()
+
       };
+
 
       renderSettings();
 
     }
 
   },
+
+
   error => {
 
     console.log(
@@ -2981,6 +4151,7 @@ onSnapshot(
     );
 
   }
+
 );
 
 
