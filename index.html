@@ -811,6 +811,8 @@ textarea{
   height:100%;
   object-fit:contain;
 }
+.detail-image-dot{width:7px;height:7px;border-radius:50%;background:#ddd}
+.detail-image-dot.active{background:#ff5a00}
 .detail-form-card{
   background:#fff;
   padding:12px;
@@ -1584,12 +1586,15 @@ textarea{
 
         <div class="detail-photo-wrap">
 
-          <div class="detail-image">
+          <div class="detail-image" id="detailImageWrap">
 
             <img id="detailImage"
                  alt="Product">
 
           </div>
+
+          <div id="detailImageDots"
+               style="display:flex;justify-content:center;gap:5px;padding:7px 0 1px;"></div>
 
         </div>
 
@@ -1870,6 +1875,11 @@ let detailQuantity = 1;
 
 let detailSelectedSize = "";
 
+
+
+let detailImages = [];
+let detailImageIndex = 0;
+let detailTouchStartX = 0;
 
 /* =========================================
    BANNER SLIDER
@@ -3646,6 +3656,31 @@ window.downloadInvoicePDF =
    PRODUCT DETAIL
 ========================================= */
 
+function renderDetailImage(){
+  const img=document.getElementById("detailImage");
+  const dots=document.getElementById("detailImageDots");
+  if(!img) return;
+  img.src=detailImages[detailImageIndex] || "";
+  if(dots){
+    dots.innerHTML=detailImages.length>1
+      ? detailImages.map((_,i)=>`<span class="detail-image-dot ${i===detailImageIndex?"active":""}"></span>`).join("")
+      : "";
+  }
+}
+
+function changeDetailImage(step){
+  if(detailImages.length<2) return;
+  detailImageIndex=(detailImageIndex+step+detailImages.length)%detailImages.length;
+  renderDetailImage();
+}
+window.changeDetailImage=changeDetailImage;
+
+function handleDetailSwipe(){
+  const diff=detailTouchStartX-(window.__detailTouchEndX||0);
+  if(Math.abs(diff)<45) return;
+  changeDetailImage(diff>0?1:-1);
+}
+
 function openProductDetail(id){
 
   const p =
@@ -3673,10 +3708,10 @@ function openProductDetail(id){
     sizes[0] || "";
 
 
-  document
-    .getElementById("detailImage")
-    .src =
-      p.image || "";
+  detailImages=(Array.isArray(p.images)?p.images:[p.image]).map(x=>String(x||"").trim()).filter(Boolean).slice(0,6);
+  if(!detailImages.length) detailImages=[p.image||""];
+  detailImageIndex=0;
+  renderDetailImage();
 
 
   document
@@ -3794,8 +3829,16 @@ function openProductDetail(id){
     .classList.add("show");
 
 
-  document.body.style.overflow =
-    "hidden";
+  document.body.style.overflow="hidden";
+
+  const detailImageWrap=document.getElementById("detailImageWrap");
+  if(detailImageWrap){
+    detailImageWrap.ontouchstart=e=>{detailTouchStartX=e.changedTouches[0].clientX;};
+    detailImageWrap.ontouchend=e=>{
+      window.__detailTouchEndX=e.changedTouches[0].clientX;
+      handleDetailSwipe();
+    };
+  }
 
 }
 
