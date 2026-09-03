@@ -192,23 +192,6 @@ header{
   height:230px;
   object-fit:cover;
 }
-.hero-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(90deg,#0009,#0001);
-  color:#fff;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:25px;
-}
-.hero-overlay h1{
-  font-size:28px;
-  margin-bottom:7px;
-}
-.hero-overlay p{
-  font-size:14px;
-}
 
 /* SECTION */
 .section-title{
@@ -1056,9 +1039,6 @@ textarea{
   .hero img{
     height:190px;
   }
-  .hero-overlay h1{
-    font-size:22px;
-  }
   .products{
     grid-template-columns:repeat(2,1fr);
     gap:8px;
@@ -1192,16 +1172,6 @@ textarea{
          src="https://images.unsplash.com/photo-1607082348824-0a96f2a6d1c5?auto=format&fit=crop&w=1400&q=85"
          alt="ShoppingMall BD Banner">
 
-    <div class="hero-overlay">
-      <h1 id="bannerTitle">
-        ShoppingMall BD
-      </h1>
-
-      <p id="bannerText">
-        স্মার্ট শপিং, সেরা দামে।
-      </p>
-    </div>
-
   </section>
 
 
@@ -1297,7 +1267,6 @@ textarea{
 
       <div id="checkoutSummary"></div>
 
-
       <label>
         আপনার নাম
       </label>
@@ -1305,7 +1274,6 @@ textarea{
       <input id="customerName"
              type="text"
              placeholder="আপনার নাম">
-
 
       <label>
         মোবাইল নম্বর
@@ -1315,7 +1283,6 @@ textarea{
              type="tel"
              placeholder="01XXXXXXXXX">
 
-
       <label>
         ডেলিভারি ঠিকানা
       </label>
@@ -1323,8 +1290,6 @@ textarea{
       <textarea id="customerAddress"
                 placeholder="সম্পূর্ণ ঠিকানা লিখুন"></textarea>
 
-
-      <!-- DELIVERY AREA -->
       <div class="delivery-box">
 
         <label>
@@ -1346,15 +1311,12 @@ textarea{
 
       </div>
 
-
-      <!-- CUSTOMER NOTE -->
       <label>
         অতিরিক্ত নির্দেশনা (ঐচ্ছিক)
       </label>
 
       <textarea id="customerNote"
                 placeholder="যেমন: বাসায় এসে কল করবেন, নির্দিষ্ট সময়ের মধ্যে ডেলিভারি চাই ইত্যাদি"></textarea>
-
 
       <div class="payment-box">
 
@@ -1379,7 +1341,6 @@ textarea{
         </select>
 
       </div>
-
 
       <button class="submit-order"
               onclick="submitOrder()">
@@ -1442,11 +1403,9 @@ textarea{
 
         </div>
 
-
         <div class="invoice-success">
           ✓ আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে
         </div>
-
 
         <div class="invoice-info">
 
@@ -1482,7 +1441,6 @@ textarea{
 
         </div>
 
-
         <div class="invoice-address">
 
           <span>
@@ -1494,7 +1452,6 @@ textarea{
           </strong>
 
         </div>
-
 
         <div class="invoice-address"
              id="invoiceNoteBox"
@@ -1510,7 +1467,6 @@ textarea{
 
         </div>
 
-
         <div class="invoice-items">
 
           <h3>
@@ -1520,7 +1476,6 @@ textarea{
           <div id="invoiceItems"></div>
 
         </div>
-
 
         <div class="invoice-summary">
 
@@ -1536,7 +1491,6 @@ textarea{
 
           </div>
 
-
           <div class="invoice-summary-row">
 
             <span>
@@ -1548,7 +1502,6 @@ textarea{
             </strong>
 
           </div>
-
 
           <div class="invoice-summary-row grand">
 
@@ -1564,7 +1517,6 @@ textarea{
 
         </div>
 
-
         <div class="invoice-footer">
 
           ধন্যবাদ ShoppingMall BD থেকে কেনাকাটা করার জন্য ❤️
@@ -1573,14 +1525,12 @@ textarea{
 
       </div>
 
-
       <button class="download-invoice-btn"
               onclick="downloadInvoicePDF()">
 
         📄 PDF Download করুন
 
       </button>
-
 
       <button class="close-invoice-btn"
               onclick="closeInvoice()">
@@ -1628,7 +1578,6 @@ textarea{
 
     </header>
 
-
     <main class="detail-page">
 
       <section class="detail-photo-card">
@@ -1646,13 +1595,11 @@ textarea{
 
       </section>
 
-
       <section class="detail-form-card">
 
         <div class="detail-verified">
           ● ভেরিফাইড প্রোডাক্ট
         </div>
-
 
         <h2 class="detail-title"
             id="detailName">
@@ -1660,7 +1607,6 @@ textarea{
           পণ্যের নাম
 
         </h2>
-
 
         <div class="detail-meta">
 
@@ -1674,7 +1620,6 @@ textarea{
 
           </div>
 
-
           <div class="detail-meta-box stock">
 
             স্টক:
@@ -1685,7 +1630,6 @@ textarea{
 
           </div>
 
-
           <div class="detail-meta-box rating">
 
             <strong id="detailRating">
@@ -1695,7 +1639,6 @@ textarea{
           </div>
 
         </div>
-
 
         <p class="detail-subtext">
 
@@ -1709,7 +1652,6 @@ textarea{
 
         </p>
 
-
         <p class="detail-sku">
 
           SKU:
@@ -1720,15 +1662,12 @@ textarea{
 
         </p>
 
-
         <div class="detail-label">
           সাইজ:
         </div>
 
-
         <div id="detailSizes"
              class="size-list"></div>
-
 
         <div class="detail-row">
 
@@ -1756,7 +1695,6 @@ textarea{
 
         </div>
 
-
         <div class="detail-row">
 
           <div class="row-label">
@@ -1772,7 +1710,6 @@ textarea{
 
         </div>
 
-
         <button class="detail-order-list"
                 onclick="orderDetailNow()">
 
@@ -1781,7 +1718,6 @@ textarea{
         </button>
 
       </section>
-
 
       <section class="detail-description-card">
 
@@ -1800,6 +1736,7 @@ textarea{
     </main>
 
 
+    <!-- PRODUCT DETAIL BOTTOM NAV -->
     <nav class="detail-bottom-nav">
 
       <button class="nav-item active"
@@ -1812,28 +1749,28 @@ textarea{
 
 
       <button class="nav-item"
-              onclick="showToast('পোস্ট সেকশন শীঘ্রই আসছে')">
+              onclick="closeProductDetail();openMenu()">
 
-        <b>▣</b>
-        পোস্ট
-
-      </button>
-
-
-      <button class="nav-item active"
-              onclick="showToast('আপনি প্রোডাক্ট পেজে আছেন')">
-
-        <b>▱</b>
-        প্রোডাক্ট
+        <b>▦</b>
+        ক্যাটাগরি
 
       </button>
 
 
       <button class="nav-item"
-              onclick="document.getElementById('orderModal').classList.add('show')">
+              onclick="closeProductDetail();openCart()">
 
-        <b>▣</b>
-        ইনবক্স
+        <b>🛒</b>
+        কার্ট
+
+      </button>
+
+
+      <button class="nav-item"
+              onclick="closeProductDetail();document.getElementById('orderModal').classList.add('show')">
+
+        <b>📦</b>
+        অর্ডার
 
       </button>
 
@@ -1906,7 +1843,17 @@ let settings = {
   bannerText:"স্মার্ট শপিং, সেরা দামে।",
 
   bannerImage:
-    "https://images.unsplash.com/photo-1607082348824-0a96f2a6d1c5?auto=format&fit=crop&w=1400&q=85"
+    "https://images.unsplash.com/photo-1607082348824-0a96f2a6d1c5?auto=format&fit=crop&w=1400&q=85",
+
+  bannerImages: [
+
+    "https://images.unsplash.com/photo-1607082348824-0a96f2a6d1c5?auto=format&fit=crop&w=1400&q=85",
+
+    "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=85",
+
+    "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1400&q=85"
+
+  ]
 
 };
 
@@ -1922,6 +1869,75 @@ let detailProduct = null;
 let detailQuantity = 1;
 
 let detailSelectedSize = "";
+
+
+/* =========================================
+   BANNER SLIDER
+========================================= */
+
+let bannerImages = [
+  "https://images.unsplash.com/photo-1607082348824-0a96f2a6d1c5?auto=format&fit=crop&w=1400&q=85",
+
+  "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=85",
+
+  "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1400&q=85"
+];
+
+let bannerIndex = 0;
+
+let bannerTimer = null;
+
+
+function startBannerSlider(){
+
+  const img =
+    document.getElementById("bannerImg");
+
+  if(!img) return;
+
+
+  clearInterval(bannerTimer);
+
+
+  if(bannerImages.length < 2){
+
+    img.src =
+      bannerImages[0] || "";
+
+    return;
+
+  }
+
+
+  bannerIndex = 0;
+
+  img.src =
+    bannerImages[0];
+
+
+  bannerTimer =
+    setInterval(() => {
+
+      bannerIndex =
+        (bannerIndex + 1) %
+        bannerImages.length;
+
+
+      img.style.opacity = "0.35";
+
+
+      setTimeout(() => {
+
+        img.src =
+          bannerImages[bannerIndex];
+
+        img.style.opacity = "1";
+
+      },120);
+
+    },3000);
+
+}
 
 
 /* =========================================
@@ -2199,46 +2215,85 @@ window.selectMenuCategory =
 
 
 /* =========================================
-   SETTINGS
+   SETTINGS + BANNER
 ========================================= */
 
 function renderSettings(){
 
-  const title = document.getElementById("bannerTitle");
-  const text = document.getElementById("bannerText");
-  const img = document.getElementById("bannerImg");
+  const img =
+    document.getElementById("bannerImg");
 
-  const defaultBanner =
-    "https://images.unsplash.com/photo-1607082348824-0a96f2a6d1c5?auto=format&fit=crop&w=1400&q=85";
+  if(!img) return;
 
-  title.textContent =
-    settings.bannerTitle ||
-    "ShoppingMall BD";
 
-  text.textContent =
-    settings.bannerText ||
-    "স্মার্ট শপিং, সেরা দামে।";
+  const defaultBanners = [
+
+    "https://images.unsplash.com/photo-1607082348824-0a96f2a6d1c5?auto=format&fit=crop&w=1400&q=85",
+
+    "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=85",
+
+    "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1400&q=85"
+
+  ];
+
+
+  let firebaseBanners =
+    Array.isArray(settings.bannerImages)
+      ? settings.bannerImages
+          .map(x => String(x).trim())
+          .filter(Boolean)
+      : [];
+
+
+  if(firebaseBanners.length >= 3){
+
+    bannerImages =
+      firebaseBanners.slice(0,3);
+
+  }
+  else{
+
+    bannerImages =
+      defaultBanners;
+
+    const single =
+      String(
+        settings.bannerImage || ""
+      ).trim();
+
+    if(single){
+
+      bannerImages[0] =
+        single;
+
+    }
+
+  }
+
 
   img.dataset.fallbackApplied = "0";
 
   img.onerror = function(){
 
-    if(this.dataset.fallbackApplied === "1"){
+    if(
+      this.dataset.fallbackApplied === "1"
+    ){
+
       return;
+
     }
 
     this.dataset.fallbackApplied = "1";
-    this.src = defaultBanner;
+
+    this.src =
+      defaultBanners[0];
+
   };
 
-  const bannerUrl =
-    String(
-      settings.bannerImage || ""
-    ).trim();
 
-  img.src =
-    bannerUrl || defaultBanner;
-  }
+  startBannerSlider();
+
+}
 
 
 /* =========================================
