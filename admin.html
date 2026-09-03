@@ -1745,6 +1745,15 @@ async function saveEditedProduct(){
     document.getElementById("editImage")
       .value.trim();
 
+  const editImages = [
+    image,
+    document.getElementById("editImage2").value.trim(),
+    document.getElementById("editImage3").value.trim(),
+    document.getElementById("editImage4").value.trim(),
+    document.getElementById("editImage5").value.trim(),
+    document.getElementById("editImage6").value.trim()
+  ].filter(Boolean).slice(0,6);
+
   const description =
     document.getElementById("editDescription")
       .value.trim();
