@@ -54,6 +54,147 @@ a{text-decoration:none;color:inherit}
 .add{background:#fff;border:1px solid #159447;color:#159447}
 .order{background:#ff5a00;color:#fff}
 .empty{background:#fff;padding:30px;text-align:center;border-radius:12px;grid-column:1/-1;color:#777}
+
+/* Video-style product detail popup */
+.product-detail-modal{
+  display:none;position:fixed;inset:0;background:#f3f4fb;z-index:120;
+  align-items:stretch;justify-content:center;padding:0;
+}
+.product-detail-modal.show{display:flex}
+.product-detail-box{
+  background:#f3f4fb;width:100%;height:100%;max-width:720px;
+  max-height:none;overflow-y:auto;border-radius:0;box-shadow:none;
+  position:relative;padding-bottom:70px;
+}
+.detail-screen-header{
+  height:72px;background:linear-gradient(90deg,#ff4f00,#ff6500);color:#fff;
+  display:flex;align-items:center;gap:9px;padding:8px 10px;
+  position:sticky;top:0;z-index:5;box-shadow:0 2px 7px #0002;
+}
+.detail-menu{
+  width:42px;height:42px;background:transparent;color:#fff;font-size:30px;
+  display:grid;place-items:center;flex:0 0 42px;
+}
+.detail-logo{
+  font-size:19px;font-weight:900;line-height:.95;white-space:nowrap;
+  flex:1;min-width:0;
+}
+.detail-logo span{font-weight:500}
+.detail-logo small{display:block;font-size:8px;font-weight:500;letter-spacing:.4px;margin-top:3px}
+.detail-balance{
+  background:#ffbf00;color:#fff;border:3px solid #fff;border-radius:24px;
+  padding:7px 14px;font-size:13px;font-weight:800;white-space:nowrap;
+}
+.detail-profile{
+  width:40px;height:40px;border-radius:50%;background:#fff;color:#ff5a00;
+  border:2px solid #fff;font-size:22px;flex:0 0 40px;
+}
+.detail-page{padding:13px 10px 0}
+.detail-photo-card,.detail-form-card,.detail-description-card{
+  background:#fff;border-radius:6px;margin-bottom:10px;overflow:hidden;
+  box-shadow:0 1px 2px #00000008;
+}
+.detail-photo-card{padding:20px 10px 18px}
+.detail-photo-wrap{display:flex;justify-content:center}
+.detail-image{
+  width:min(342px,78vw);height:min(457px,104vw);min-height:280px;
+  background:#eee;border-radius:6px;overflow:hidden;
+}
+.detail-image img{width:100%;height:100%;object-fit:cover}
+.detail-photo-actions{
+  display:flex;justify-content:center;gap:4px;margin-top:18px
+}
+.detail-photo-actions button{
+  background:#fff;border:1px solid #159447;color:#159447;border-radius:4px;
+  padding:8px 10px;font-size:13px;font-weight:700;
+}
+.detail-form-card{border:1px solid #eef0f4}
+.detail-verified{
+  margin:10px 10px 10px;background:#fafafa;text-align:center;
+  color:#159447;font-size:15px;font-weight:800;padding:8px;border-radius:2px;
+}
+.detail-title{
+  display:none;
+}
+.detail-meta{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;
+  border-top:1px solid #eee;border-bottom:1px solid #eee;background:#fafafd;
+}
+.detail-meta-box{
+  padding:10px 5px;text-align:center;font-size:14px;min-height:39px;
+}
+.detail-meta-box strong{color:#e72f8a;font-weight:800}
+.detail-meta-box.stock strong{color:#159447}
+.detail-meta-box.rating strong{color:#f7b500;letter-spacing:1px}
+.detail-subtext,.detail-sku{
+  padding:12px 20px 0;font-size:15px;line-height:1.45
+}
+.detail-subtext b{color:#e72f8a}
+.detail-sku{padding-top:9px}
+.detail-label{
+  font-size:15px;font-weight:400;margin:17px 20px 8px
+}
+.size-list{
+  display:flex;flex-wrap:wrap;gap:16px;align-items:center;
+  padding:0 20px 14px
+}
+.size-btn{
+  min-width:auto;padding:0 2px;border:0;background:transparent;border-radius:0;
+  color:#333;font-size:15px;display:flex;align-items:center;gap:6px
+}
+.size-btn::before{
+  content:"";display:inline-block;width:31px;height:31px;border:1px solid #bbb;
+  border-radius:50%;background:#fff
+}
+.size-btn.selected::before{
+  border:7px solid #ff5a00;box-shadow:0 0 0 1px #ff5a00 inset
+}
+.size-btn.selected{background:transparent;color:#333;border-color:transparent}
+.detail-row{
+  display:grid;grid-template-columns:125px 210px 1fr;align-items:center;
+  min-height:74px;border-top:1px solid #eee;padding:9px 20px;gap:0
+}
+.row-label{font-size:17px}
+.detail-input-like{
+  min-height:60px;background:#f7f7ff;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;font-size:17px;color:#555;
+}
+.detail-price-input{justify-content:flex-start;padding-left:100px}
+.qty-inline{
+  width:32px;height:32px;border:0;background:transparent;color:#777;font-size:20px
+}
+.detail-help{
+  color:#e72f8a;font-size:14px;line-height:1.55;padding:0 20px 12px
+}
+.detail-order-list{
+  margin:0 20px 20px;background:#fff;border:1px solid #159447;color:#159447;
+  border-radius:5px;padding:10px 14px;font-size:15px;font-weight:800
+}
+.detail-description-card{padding:12px 20px 24px}
+.detail-description-card h3{font-size:16px;font-weight:500;margin-bottom:9px}
+.detail-description-card p{font-size:13px;line-height:1.7;color:#444;white-space:pre-line}
+.detail-bottom-nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:min(720px,100%);height:67px;background:#fff;border-top:1px solid #ddd;
+  z-index:130;display:grid;grid-template-columns:repeat(4,1fr);
+}
+.detail-bottom-nav .nav-item{
+  border:0;background:#fff;color:#666;font-size:13px;display:flex;
+  flex-direction:column;align-items:center;justify-content:center;gap:2px
+}
+.detail-bottom-nav .nav-item b{font-size:22px;line-height:1}
+.detail-bottom-nav .nav-item.active{color:#ff5a00}
+@media(max-width:420px){
+  .detail-logo{font-size:16px}
+  .detail-balance{padding:6px 9px;font-size:11px}
+  .detail-profile{width:36px;height:36px;flex-basis:36px}
+  .detail-row{grid-template-columns:115px 1fr}
+  .detail-price-input{padding-left:30px}
+}
+@media(min-width:700px){
+  .product-detail-box{border-radius:0}
+}
+
 .cart-drawer{position:fixed;right:-100%;top:0;width:min(390px,92%);height:100%;background:#fff;z-index:100;box-shadow:-5px 0 20px #0003;transition:.3s;padding:15px;display:flex;flex-direction:column}
 .cart-drawer.open{right:0}
 .cart-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:12px}
@@ -126,6 +267,42 @@ a{text-decoration:none;color:inherit}
  </section>
 </main>
 
+
+<div id="productDetailModal" class="product-detail-modal">
+ <div class="product-detail-box">
+  <header class="detail-screen-header">
+   <button class="detail-menu" onclick="closeProductDetail()">☰</button>
+   <div class="detail-logo">SHOPPING<span>MALL</span><small>BD • ONLINE SHOPPING</small></div>
+   <button class="detail-balance" onclick="showToast('ব্যালেন্স ফিচার শীঘ্রই আসছে')">৳ ব্যালেন্স দেখুন</button>
+   <button class="detail-profile" onclick="document.getElementById('orderModal').classList.add('show')">♙</button>
+  </header>
+  <main class="detail-page">
+   <section class="detail-photo-card">
+    <div class="detail-photo-wrap"><div class="detail-image"><img id="detailImage" alt="Product"></div></div>
+    <div class="detail-photo-actions"><button onclick="downloadDetailImage()">⬇ ছবি ডাউনলোড</button><button onclick="toggleFavoriteDetail()">⊕ ফেভারিট</button></div>
+   </section>
+   <section class="detail-form-card">
+    <div class="detail-verified">● ভেরিফাইড প্রোডাক্ট</div>
+    <h2 class="detail-title" id="detailName">পণ্যের নাম</h2>
+    <div class="detail-meta"><div class="detail-meta-box">প্রাইস: <strong id="detailPrice">৳0</strong></div><div class="detail-meta-box stock">স্টক: <strong id="detailStock">আছে</strong></div><div class="detail-meta-box rating"><strong id="detailRating">★★★★★</strong></div></div>
+    <p class="detail-subtext">প্রোডাক্টের সাজেস্টেড বিক্রয় মূল্য সর্বোচ্চ <b id="detailSuggested">৳0</b> টাকা।</p>
+    <p class="detail-sku">SKU: <span id="detailSku">—</span></p>
+    <div class="detail-label">সাইজ:</div><div id="detailSizes" class="size-list"></div>
+    <div class="detail-row"><div class="row-label">পরিমাণ/পিস</div><div class="detail-input-like"><button class="qty-inline" onclick="changeDetailQty(-1)">−</button><span id="detailQty">1</span><button class="qty-inline" onclick="changeDetailQty(1)">+</button></div></div>
+    <div class="detail-row"><div class="row-label">বিক্রয়-মূল্য</div><div class="detail-input-like detail-price-input" id="detailSellingPrice">৳0</div></div>
+    <p class="detail-help">বিক্রয় মূল্যের জায়গায় শুধু প্রোডাক্ট এর প্রাইস লিখুন, কুরিয়ার চার্জের অপশন পরবর্তী পেইজে পাবেন।</p>
+    <button class="detail-order-list" onclick="orderDetailNow()">🛒 অর্ডার তালিকায় অ্যাড করুন</button>
+   </section>
+   <section class="detail-description-card"><h3>পণ্যের বিবরণ</h3><p id="detailDescription">এই পণ্যের বিস্তারিত তথ্য এখানে দেখানো হবে।</p></section>
+  </main>
+  <nav class="detail-bottom-nav">
+   <button class="nav-item active" onclick="closeProductDetail();window.scrollTo({top:0,behavior:'smooth'})"><b>⌂</b>হোম</button>
+   <button class="nav-item" onclick="showToast('পোস্ট সেকশন শীঘ্রই আসছে')"><b>▣</b>পোস্ট</button>
+   <button class="nav-item active" onclick="showToast('আপনি প্রোডাক্ট পেজে আছেন')"><b>▱</b>প্রোডাক্ট</button>
+   <button class="nav-item" onclick="document.getElementById('orderModal').classList.add('show')"><b>▣</b>ইনবক্স</button>
+  </nav>
+ </div>
+</div>
 <div id="overlay" class="overlay" onclick="closeCart()"></div>
 <aside id="cartDrawer" class="cart-drawer">
  <div class="cart-head"><h2>🛒 আমার কার্ট</h2><button class="close" onclick="closeCart()">✕</button></div>
@@ -145,10 +322,10 @@ a{text-decoration:none;color:inherit}
  </div>
 </div>
 <nav class="bottom-nav">
- <button class="nav-item active" onclick="window.scrollTo({top:0,behavior:'smooth'})"><b>⌂</b>হোম</button>
- <button class="nav-item" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})"><b>▦</b>ক্যাটাগরি</button>
- <button class="nav-item" onclick="openCart()"><b>🛒</b>কার্ট</button>
- <button class="nav-item" onclick="document.getElementById('orderModal').classList.add('show')"><b>📦</b>অর্ডার</button>
+ <button class="nav-item active" onclick="closeProductDetail();window.scrollTo({top:0,behavior:'smooth'})"><b>⌂</b>হোম</button>
+ <button class="nav-item" onclick="closeProductDetail();document.getElementById('categories').scrollIntoView({behavior:'smooth'})"><b>▣</b>পোস্ট</button>
+ <button class="nav-item" onclick="closeProductDetail();document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})"><b>▱</b>প্রোডাক্ট</button>
+ <button class="nav-item" onclick="closeProductDetail();document.getElementById('orderModal').classList.add('show')"><b>▣</b>ইনবক্স</button>
 </nav>
 <div id="toast" class="toast"></div>
 
@@ -196,30 +373,81 @@ function renderProducts(){
   const q=(document.getElementById("searchInput").value||"").toLowerCase();
   const list=products.filter(p=>(selectedCat==="সব"||p.category===selectedCat)&&String(p.name||"").toLowerCase().includes(q));
   document.getElementById("products").innerHTML=list.length?list.map(p=>`
-  <article class="card">
+  <article class="card" onclick="openProductDetail('${p.id}')">
    <div class="card-img"><img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"><span class="badge">${p.badge||"অফার"}</span></div>
    <div class="card-body">
     <div class="card-title">${p.name}</div>
     <div class="rating">★★★★★ <span style="color:#777">(${p.rating||5})</span></div>
     <div class="price"><span class="offer">${money(p.price)}</span><span class="old">${money(p.oldPrice||p.price)}</span></div>
-    <div class="actions"><button class="add" onclick="addCart('${p.id}')">🛒 কার্ট</button><button class="order" onclick="buyNow('${p.id}')">অর্ডার করুন</button></div>
+    <div class="actions"><button class="add" onclick="event.stopPropagation();addCart('${p.id}')">🛒 কার্ট</button><button class="order" onclick="event.stopPropagation();buyNow('${p.id}')">অর্ডার করুন</button></div>
    </div>
   </article>`).join(""):`<div class="empty">এই ক্যাটাগরিতে কোনো পণ্য পাওয়া যায়নি।</div>`;
 }
 
-function addCart(id){
+function addCart(id,size=null,qty=1){
   const p=products.find(x=>x.id===id);if(!p)return;
-  const item=cart.find(x=>x.id===id);
-  if(item)item.qty++;else cart.push({...p,qty:1});
+  const chosenSize=size||((p.sizes||[])[0]||"");
+  const item=cart.find(x=>x.id===id&&String(x.size||"")===String(chosenSize||""));
+  if(item)item.qty+=qty;else cart.push({...p,qty:qty,size:chosenSize});
   save();updateCart();showToast("কার্টে যোগ হয়েছে ✓")
 }
 function updateCart(){
   document.getElementById("cartCount").textContent=cart.reduce((s,x)=>s+x.qty,0);
   document.getElementById("cartList").innerHTML=cart.length?cart.map(x=>`
-  <div class="cart-item"><img src="${x.image}"><div style="flex:1"><h4>${x.name}</h4><p>${money(x.price)} × ${x.qty}</p>
+  <div class="cart-item"><img src="${x.image}"><div style="flex:1"><h4>${x.name}</h4><p>${x.size?`সাইজ: ${x.size} • `:""}${money(x.price)} × ${x.qty}</p>
   <div class="qty"><button onclick="changeQty('${x.id}',-1)">−</button><span>${x.qty}</span><button onclick="changeQty('${x.id}',1)">+</button><button onclick="removeCart('${x.id}')" style="margin-left:auto">🗑️</button></div></div></div>`).join(""):`<div style="text-align:center;padding:45px 10px;color:#888">🛒<br><br>কার্ট এখনো খালি।</div>`;
   document.getElementById("cartTotal").textContent=money(cart.reduce((s,x)=>s+x.price*x.qty,0));
 }
+let detailProduct=null,detailSelectedSize="",detailQuantity=1;
+function productSizes(p){
+  const raw=p.sizes;
+  if(Array.isArray(raw)&&raw.length)return raw.map(String);
+  if(typeof raw==="string"&&raw.trim())return raw.split(",").map(s=>s.trim()).filter(Boolean);
+  return ["M","L","XL","XXL"];
+}
+function productStock(p){
+  const n=Number(p.quantity??p.stock);
+  return Number.isFinite(n)&&n>=0?n:null;
+}
+function openProductDetail(id){
+  const p=products.find(x=>x.id===id);if(!p)return;
+  detailProduct=p;detailQuantity=1;
+  const sizes=productSizes(p);detailSelectedSize=sizes[0]||"";
+  document.getElementById("detailImage").src=p.image||"";
+  document.getElementById("detailName").textContent=p.name||"";
+  document.getElementById("detailRating").textContent="★★★★★";
+  document.getElementById("detailPrice").textContent=money(p.price);
+  document.getElementById("detailSuggested").textContent=money(p.oldPrice||p.price);
+  document.getElementById("detailSellingPrice").textContent=money(p.price);
+  document.getElementById("detailSku").textContent=p.sku||p.SKU||p.id||"—";
+  const stock=productStock(p);
+  document.getElementById("detailStock").textContent=stock===null?"আছে":(stock>0?`${stock} পিস`:"নেই");
+  document.getElementById("detailSizes").innerHTML=sizes.map((s,i)=>`<button data-size="${String(s).replace(/"/g,'&quot;')}" class="size-btn ${s===detailSelectedSize?"selected":""}" onclick="selectDetailSize('${String(s).replace(/'/g,"\\'")}')">${s}</button>`).join("");
+  document.getElementById("detailQty").textContent=detailQuantity;
+  document.getElementById("detailDescription").textContent=p.description||p.details||"প্রিমিয়াম কোয়ালিটি পণ্য। ভালোভাবে প্যাকেজিং করে দ্রুত ডেলিভারি করা হবে।";
+  document.getElementById("productDetailModal").classList.add("show");
+  document.body.style.overflow="hidden";
+}
+function selectDetailSize(size){
+  detailSelectedSize=String(size);
+  document.querySelectorAll("#detailSizes .size-btn").forEach(b=>b.classList.toggle("selected",b.getAttribute("data-size")===detailSelectedSize));
+}
+function changeDetailQty(n){
+  if(!detailProduct)return;
+  const stock=productStock(detailProduct);
+  const max=stock===null?99:Math.max(1,stock);
+  detailQuantity=Math.min(max,Math.max(1,detailQuantity+n));
+  document.getElementById("detailQty").textContent=detailQuantity;
+}
+function closeProductDetail(){
+  document.getElementById("productDetailModal").classList.remove("show");
+  detailProduct=null;document.body.style.overflow="";
+}
+function addDetailToCart(){if(!detailProduct)return;addCart(detailProduct.id,detailSelectedSize,detailQuantity);closeProductDetail()}
+function orderDetailNow(){if(!detailProduct)return;cart=[];addCart(detailProduct.id,detailSelectedSize,detailQuantity);closeProductDetail();openCheckout()}
+function downloadDetailImage(){if(!detailProduct||!detailProduct.image)return;const a=document.createElement("a");a.href=detailProduct.image;a.target="_blank";a.rel="noopener";a.click()}
+function toggleFavoriteDetail(){showToast("ফেভারিট তালিকায় যোগ হয়েছে ✓")}
+
 function changeQty(id,n){const x=cart.find(a=>a.id===id);if(!x)return;x.qty+=n;if(x.qty<1)cart=cart.filter(a=>a.id!==id);save();updateCart()}
 function removeCart(id){cart=cart.filter(a=>a.id!==id);save();updateCart()}
 function openCart(){document.getElementById("cartDrawer").classList.add("open");document.getElementById("overlay").classList.add("show");updateCart()}
@@ -260,7 +488,14 @@ setInterval(()=>{let s=Math.max(0,Math.floor((end-Date.now())/1000));let h=Math.
 
 window.addCart=addCart;window.changeQty=changeQty;window.removeCart=removeCart;
 window.openCart=openCart;window.closeCart=closeCart;window.buyNow=buyNow;window.openCheckout=openCheckout;
+window.openProductDetail=openProductDetail;window.closeProductDetail=closeProductDetail;window.selectDetailSize=selectDetailSize;window.changeDetailQty=changeDetailQty;window.addDetailToCart=addDetailToCart;window.orderDetailNow=orderDetailNow;
 window.closeModal=closeModal;window.submitOrder=submitOrder;window.showToast=showToast;
+document.getElementById("productDetailModal").addEventListener("click",e=>{
+  if(e.target===document.getElementById("productDetailModal")) closeProductDetail();
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape" && document.getElementById("productDetailModal").classList.contains("show")) closeProductDetail();
+});
 
 onSnapshot(collection(db,"products"),snap=>{
   products=snap.docs.map(d=>({id:d.id,...d.data()}));
