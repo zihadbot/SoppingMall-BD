@@ -410,10 +410,6 @@ label{
 
 <body>
 
-<!-- =========================================
-     LOGIN
-========================================= -->
-
 <div id="authScreen" class="auth-screen">
 
   <div class="auth-box">
@@ -462,10 +458,6 @@ label{
 </div>
 
 
-<!-- =========================================
-     ADMIN APP
-========================================= -->
-
 <div id="adminApp">
 
 <header>
@@ -502,10 +494,6 @@ label{
 
 <main class="container">
 
-<!-- =========================================
-     STATS
-========================================= -->
-
 <div class="stats">
 
   <div class="stat">
@@ -527,10 +515,6 @@ label{
 
 
 <div class="grid">
-
-<!-- =========================================
-     BANNER
-========================================= -->
 
 <section class="panel">
 
@@ -572,10 +556,6 @@ label{
 
 </section>
 
-
-<!-- =========================================
-     ADD PRODUCT
-========================================= -->
 
 <section class="panel">
 
@@ -689,10 +669,6 @@ label{
 </section>
 
 
-<!-- =========================================
-     PRODUCTS
-========================================= -->
-
 <section class="panel full">
 
   <h2>
@@ -704,10 +680,6 @@ label{
 </section>
 
 
-<!-- =========================================
-     ORDERS
-========================================= -->
-
 <section class="panel full">
 
   <h2>
@@ -718,10 +690,6 @@ label{
 
 </section>
 
-
-<!-- =========================================
-     DATA CONTROL
-========================================= -->
 
 <section class="panel full">
 
@@ -759,10 +727,6 @@ label{
 
 </div>
 
-
-<!-- =========================================
-     EDIT PRODUCT MODAL
-========================================= -->
 
 <div id="editModal" class="edit-modal">
 
@@ -901,10 +865,6 @@ label{
 
 <script type="module">
 
-/* =========================================
-   FIREBASE IMPORT
-========================================= */
-
 import {
   initializeApp
 }
@@ -930,10 +890,6 @@ import {
 }
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-
-/* =========================================
-   FIREBASE CONFIG
-========================================= */
 
 const firebaseConfig = {
 
@@ -969,23 +925,6 @@ const db =
 const auth =
   getAuth(app);
 
-
-/*
- Firebase Console-এ:
-
- Authentication
- >
- Sign-in method
- >
- Email/Password
-
- চালু করতে হবে।
-*/
-
-
-/* =========================================
-   DEFAULT PRODUCTS
-========================================= */
 
 const defaultProducts = [
 
@@ -1096,10 +1035,6 @@ const defaults = {
 };
 
 
-/* =========================================
-   GLOBAL DATA
-========================================= */
-
 let products = [];
 
 let settings = {
@@ -1108,10 +1043,6 @@ let settings = {
 
 let orders = [];
 
-
-/* =========================================
-   HELPERS
-========================================= */
 
 function money(n){
 
@@ -1146,10 +1077,6 @@ function parseSizes(value){
 }
 
 
-/* =========================================
-   SEED PRODUCTS
-========================================= */
-
 async function seedProductsIfEmpty(){
 
   const snap =
@@ -1182,10 +1109,6 @@ async function seedProductsIfEmpty(){
 }
 
 
-/* =========================================
-   SEED SETTINGS
-========================================= */
-
 async function seedSettingsIfEmpty(){
 
   const ref =
@@ -1212,10 +1135,6 @@ async function seedSettingsIfEmpty(){
 }
 
 
-/* =========================================
-   LOAD SETTINGS
-========================================= */
-
 function loadSettings(){
 
   document.getElementById("bannerTitle")
@@ -1233,10 +1152,6 @@ function loadSettings(){
 
 }
 
-
-/* =========================================
-   SAVE BANNER
-========================================= */
 
 async function saveBanner(){
 
@@ -1290,10 +1205,6 @@ async function saveBanner(){
 window.saveBanner =
   saveBanner;
 
-
-/* =========================================
-   ADD PRODUCT
-========================================= */
 
 async function addProduct(){
 
@@ -1445,10 +1356,6 @@ window.addProduct =
   addProduct;
 
 
-/* =========================================
-   RENDER PRODUCTS
-========================================= */
-
 function renderProducts(){
 
   const list =
@@ -1562,10 +1469,6 @@ function renderProducts(){
 }
 
 
-/* =========================================
-   EDIT PRODUCT
-========================================= */
-
 function editProduct(id){
 
   const p =
@@ -1641,10 +1544,6 @@ window.editProduct =
   editProduct;
 
 
-/* =========================================
-   CLOSE EDIT MODAL
-========================================= */
-
 function closeEditModal(){
 
   document.getElementById("editModal")
@@ -1655,10 +1554,6 @@ function closeEditModal(){
 window.closeEditModal =
   closeEditModal;
 
-
-/* =========================================
-   SAVE EDITED PRODUCT
-========================================= */
 
 async function saveEditedProduct(){
 
@@ -1806,10 +1701,6 @@ window.saveEditedProduct =
   saveEditedProduct;
 
 
-/* =========================================
-   DELETE PRODUCT
-========================================= */
-
 async function deleteProduct(id){
 
   if(
@@ -1852,7 +1743,7 @@ window.deleteProduct =
 
 
 /* =========================================
-   RENDER ORDERS
+   UPDATED ORDER RENDER
 ========================================= */
 
 function renderOrders(){
@@ -1876,7 +1767,65 @@ function renderOrders(){
 
 
   box.innerHTML =
-    orders.map(o => `
+    orders.map(o => {
+
+      /*
+        নতুন order-এর জন্য:
+        o.subtotal
+        o.deliveryCharge
+        o.customer.deliveryArea
+        o.customer.note
+
+        পাশাপাশি top-level field-ও support করা হয়েছে।
+        ফলে index.html যেভাবেই save করুক,
+        admin data দেখাতে পারবে।
+      */
+
+      const deliveryCharge =
+        Number(
+          o.deliveryCharge ??
+          o.customer?.deliveryCharge ??
+          0
+        );
+
+
+      const grandTotal =
+        Number(
+          o.total ??
+          o.grandTotal ??
+          0
+        );
+
+
+      const calculatedSubtotal =
+        Math.max(
+          0,
+          grandTotal - deliveryCharge
+        );
+
+
+      const subtotal =
+        Number(
+          o.subtotal ??
+          o.customer?.subtotal ??
+          calculatedSubtotal
+        );
+
+
+      const deliveryArea =
+        o.deliveryArea ||
+        o.customer?.deliveryArea ||
+        "—";
+
+
+      const customerNote =
+        o.customerNote ||
+        o.customer?.note ||
+        o.customer?.details ||
+        "";
+
+
+      return `
 
       <div class="order">
 
@@ -1907,6 +1856,11 @@ function renderOrders(){
 
           <b>পেমেন্ট:</b>
           ${o.customer?.payment || ""}
+
+          <br>
+
+          <b>ডেলিভারি এলাকা:</b>
+          ${deliveryArea}
 
           <br>
 
@@ -1942,13 +1896,44 @@ function renderOrders(){
 
           <br>
 
-          <b>মোট:</b>
-          ${money(o.total)}
+          <b>পণ্যের মোট:</b>
+          ${money(subtotal)}
+
+          <br>
+
+          <b>ডেলিভারি চার্জ:</b>
+          ${money(deliveryCharge)}
+
+          <br>
+
+          <b>গ্র্যান্ড টোটাল:</b>
+          ${money(grandTotal)}
 
           •
           ${o.date || ""}
 
         </p>
+
+
+        ${
+          customerNote
+          ?
+          `
+            <div class="note">
+
+              <b>
+                📝 কাস্টমারের নোট:
+              </b>
+
+              <br>
+
+              ${customerNote}
+
+            </div>
+          `
+          :
+          ""
+        }
 
 
         ${
@@ -2044,7 +2029,9 @@ function renderOrders(){
 
       </div>
 
-    `).join("");
+    `;
+
+    }).join("");
 
 }
 
