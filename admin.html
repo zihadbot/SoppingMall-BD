@@ -672,6 +672,26 @@ label{
     placeholder="https://..."
   >
 
+  <label>অতিরিক্ত ছবি ২ (Optional)</label>
+  <input id="pImage2" placeholder="https://...">
+
+  <label>অতিরিক্ত ছবি ৩ (Optional)</label>
+  <input id="pImage3" placeholder="https://...">
+
+  <label>অতিরিক্ত ছবি ৪ (Optional)</label>
+  <input id="pImage4" placeholder="https://...">
+
+  <label>অতিরিক্ত ছবি ৫ (Optional)</label>
+  <input id="pImage5" placeholder="https://...">
+
+  <label>অতিরিক্ত ছবি ৬ (Optional)</label>
+  <input id="pImage6" placeholder="https://...">
+
+  <div class="small-text">
+    প্রথম ছবিটি Primary ছবি। বাকি ৫টি Optional — মোট ৬টি ছবি পর্যন্ত দেওয়া যাবে।
+    Product popup-এ swipe করলে ছবিগুলো দেখা যাবে।
+  </div>
+
   <label>
     ব্যাজ
   </label>
@@ -851,6 +871,21 @@ label{
       <input
         id="editImage"
       >
+
+      <label>অতিরিক্ত ছবি ২ (Optional)</label>
+      <input id="editImage2">
+
+      <label>অতিরিক্ত ছবি ৩ (Optional)</label>
+      <input id="editImage3">
+
+      <label>অতিরিক্ত ছবি ৪ (Optional)</label>
+      <input id="editImage4">
+
+      <label>অতিরিক্ত ছবি ৫ (Optional)</label>
+      <input id="editImage5">
+
+      <label>অতিরিক্ত ছবি ৬ (Optional)</label>
+      <input id="editImage6">
 
       <label>
         পণ্যের বিবরণ
@@ -1322,6 +1357,15 @@ async function addProduct(){
     document.getElementById("pImage")
       .value.trim();
 
+  const extraImages=[
+    image,
+    document.getElementById("pImage2").value.trim(),
+    document.getElementById("pImage3").value.trim(),
+    document.getElementById("pImage4").value.trim(),
+    document.getElementById("pImage5").value.trim(),
+    document.getElementById("pImage6").value.trim()
+  ].filter(Boolean);
+
   const badge =
     document.getElementById("pBadge")
       .value.trim();
@@ -1364,7 +1408,10 @@ async function addProduct(){
 
         image:image,
 
-        sizes:
+        
+         images:extraImages,
+
+         sizes:
           sizes.length
           ?
           sizes
@@ -1593,10 +1640,30 @@ function editProduct(id){
       p.badge ||
       "";
 
+  const editImages =
+    (Array.isArray(p.images) ? p.images : [p.image])
+      .map(x => String(x || "").trim())
+      .filter(Boolean)
+      .slice(0,6);
+
   document.getElementById("editImage")
     .value =
+      editImages[0] ||
       p.image ||
       "";
+
+  [
+    "editImage2",
+    "editImage3",
+    "editImage4",
+    "editImage5",
+    "editImage6"
+  ].forEach((id,i) => {
+    document.getElementById(id)
+      .value =
+        editImages[i + 1] ||
+        "";
+  });
 
   document.getElementById("editDescription")
     .value =
@@ -1739,7 +1806,10 @@ async function saveEditedProduct(){
 
         image:image,
 
-        description:description
+        
+         images:editImages,
+
+         description:description
 
       },
 
