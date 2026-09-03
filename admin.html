@@ -4,328 +4,2595 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ShoppingMall BD — Admin Panel</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,"Noto Sans Bengali",sans-serif;background:#f4f6fb;color:#222}
-header{background:linear-gradient(90deg,#ff4f00,#ff7800);color:#fff;padding:15px}.head{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between}.logo{font-size:21px;font-weight:800}.logo small{display:block;font-size:10px;font-weight:400}
-.container{max-width:1100px;margin:auto;padding:15px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.panel{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 8px #0000000b;margin-bottom:14px}.panel h2{font-size:18px;margin-bottom:12px}.full{grid-column:1/-1}
-input,textarea,select{width:100%;padding:10px;border:1px solid #ddd;border-radius:7px;margin:5px 0 10px;outline:0}textarea{min-height:90px}
-label{font-size:12px;font-weight:700}.btn{padding:10px 14px;border-radius:7px;border:0;font-weight:700}.primary{background:#ff5a00;color:#fff}.green{background:#159447;color:#fff}.gray{background:#eee}.danger{background:#e53935;color:#fff}
-.product{display:flex;gap:10px;align-items:center;border:1px solid #eee;border-radius:9px;padding:8px;margin-bottom:8px}.product img{width:70px;height:70px;object-fit:cover;border-radius:7px}.pinfo{flex:1}.pinfo h3{font-size:13px}.pinfo p{font-size:12px;color:#e84900;margin-top:4px}.actions{display:flex;gap:5px;flex-wrap:wrap}
-.order{border:1px solid #eee;border-radius:9px;padding:11px;margin-bottom:8px}.order h3{font-size:14px}.order p{font-size:12px;margin-top:4px;line-height:1.5}.status{padding:4px 7px;border-radius:15px;background:#fff0e8;color:#e84900;font-size:10px;font-weight:bold}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}.stat{background:#fff;padding:14px;border-radius:10px;text-align:center}.stat b{display:block;font-size:22px;color:#ff5a00}.stat span{font-size:11px;color:#777}
-.note{font-size:11px;color:#777;line-height:1.6;background:#fff8f3;padding:10px;border-radius:7px;margin-top:8px}
-@media(max-width:650px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.product{align-items:flex-start}.stats{grid-template-columns:repeat(3,1fr)}}
 
-.auth-screen{position:fixed;inset:0;background:#f4f6fb;z-index:9999;display:flex;align-items:center;justify-content:center;padding:18px}
-.auth-box{width:min(390px,100%);background:#fff;border-radius:14px;padding:22px;box-shadow:0 8px 30px #0002}
-.auth-box h2{margin-bottom:6px}.auth-box p{font-size:12px;color:#777;margin-bottom:15px}.auth-error{color:#e53935;font-size:12px;min-height:18px;margin-bottom:8px}
-#adminApp{display:none}.logout{background:#fff;color:#e84900}
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0
+}
+
+body{
+  font-family:Arial,"Noto Sans Bengali",sans-serif;
+  background:#f4f6fb;
+  color:#222;
+}
+
+button,input,textarea,select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+header{
+  background:linear-gradient(90deg,#ff4f00,#ff7800);
+  color:#fff;
+  padding:15px;
+}
+
+.head{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.logo{
+  font-size:21px;
+  font-weight:800;
+}
+
+.logo small{
+  display:block;
+  font-size:10px;
+  font-weight:400;
+  margin-top:3px;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:15px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.panel{
+  background:#fff;
+  border-radius:12px;
+  padding:16px;
+  box-shadow:0 2px 8px #0000000b;
+  margin-bottom:14px;
+}
+
+.panel h2{
+  font-size:18px;
+  margin-bottom:12px;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  padding:10px;
+  border:1px solid #ddd;
+  border-radius:7px;
+  margin:5px 0 10px;
+  outline:0;
+  background:#fff;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+label{
+  font-size:12px;
+  font-weight:700;
+}
+
+.btn{
+  padding:10px 14px;
+  border-radius:7px;
+  border:0;
+  font-weight:700;
+}
+
+.primary{
+  background:#ff5a00;
+  color:#fff;
+}
+
+.green{
+  background:#159447;
+  color:#fff;
+}
+
+.gray{
+  background:#eee;
+  color:#222;
+}
+
+.danger{
+  background:#e53935;
+  color:#fff;
+}
+
+.product{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  border:1px solid #eee;
+  border-radius:9px;
+  padding:8px;
+  margin-bottom:8px;
+}
+
+.product img{
+  width:75px;
+  height:75px;
+  object-fit:cover;
+  border-radius:7px;
+  background:#f5f5f5;
+}
+
+.pinfo{
+  flex:1;
+  min-width:0;
+}
+
+.pinfo h3{
+  font-size:13px;
+  margin-bottom:3px;
+}
+
+.pinfo p{
+  font-size:12px;
+  color:#e84900;
+  margin-top:4px;
+  line-height:1.6;
+}
+
+.actions{
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+}
+
+.order{
+  border:1px solid #eee;
+  border-radius:9px;
+  padding:11px;
+  margin-bottom:8px;
+  background:#fff;
+}
+
+.order h3{
+  font-size:14px;
+}
+
+.order p{
+  font-size:12px;
+  margin-top:7px;
+  line-height:1.7;
+}
+
+.status{
+  padding:4px 7px;
+  border-radius:15px;
+  background:#fff0e8;
+  color:#e84900;
+  font-size:10px;
+  font-weight:bold;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-bottom:14px;
+}
+
+.stat{
+  background:#fff;
+  padding:14px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 2px 8px #00000008;
+}
+
+.stat b{
+  display:block;
+  font-size:22px;
+  color:#ff5a00;
+}
+
+.stat span{
+  font-size:11px;
+  color:#777;
+}
+
+.note{
+  font-size:11px;
+  color:#777;
+  line-height:1.6;
+  background:#fff8f3;
+  padding:10px;
+  border-radius:7px;
+  margin-top:8px;
+}
+
+.small-text{
+  font-size:10px;
+  color:#777;
+  line-height:1.6;
+}
+
+.product-meta{
+  margin-top:6px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+}
+
+.tag{
+  background:#f4f4f4;
+  padding:4px 6px;
+  border-radius:5px;
+  font-size:9px;
+  color:#666;
+}
+
+.edit-modal{
+  position:fixed;
+  inset:0;
+  background:#0008;
+  z-index:9000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+
+.edit-modal.show{
+  display:flex;
+}
+
+.edit-box{
+  width:min(560px,100%);
+  max-height:92vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:13px;
+}
+
+.edit-head{
+  position:sticky;
+  top:0;
+  z-index:2;
+  background:#ff5a00;
+  color:#fff;
+  padding:13px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.edit-head button{
+  background:transparent;
+  color:#fff;
+  border:0;
+  font-size:23px;
+}
+
+.edit-body{
+  padding:15px;
+}
+
+.edit-actions{
+  display:flex;
+  gap:7px;
+  margin-top:8px;
+}
+
+.edit-actions button{
+  flex:1;
+}
+
+.auth-screen{
+  position:fixed;
+  inset:0;
+  background:#f4f6fb;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+.auth-box{
+  width:min(390px,100%);
+  background:#fff;
+  border-radius:14px;
+  padding:22px;
+  box-shadow:0 8px 30px #0002;
+}
+
+.auth-box h2{
+  margin-bottom:6px;
+}
+
+.auth-box p{
+  font-size:12px;
+  color:#777;
+  margin-bottom:15px;
+}
+
+.auth-error{
+  color:#e53935;
+  font-size:12px;
+  min-height:18px;
+  margin-bottom:8px;
+}
+
+#adminApp{
+  display:none;
+}
+
+.logout{
+  background:#fff;
+  color:#e84900;
+}
+
+@media(max-width:650px){
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  .product{
+    align-items:flex-start;
+  }
+
+  .product img{
+    width:65px;
+    height:65px;
+  }
+
+  .stats{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .stat{
+    padding:10px 5px;
+  }
+
+  .stat b{
+    font-size:18px;
+  }
+
+  .stat span{
+    font-size:9px;
+  }
+
+  .head .gray{
+    display:none;
+  }
+
+  .logo{
+    font-size:17px;
+  }
+
+  .actions .btn{
+    padding:8px 10px;
+    font-size:10px;
+  }
+}
 </style>
 </head>
+
 <body>
+
+<!-- =========================================
+     LOGIN
+========================================= -->
+
 <div id="authScreen" class="auth-screen">
+
   <div class="auth-box">
+
     <h2>🔐 Admin Login</h2>
-    <p>শুধু অনুমোদিত Admin account দিয়ে প্রবেশ করুন।</p>
-    <label>Admin Email</label>
-    <input id="loginEmail" type="email" placeholder="admin@example.com" autocomplete="username">
-    <label>Password</label>
-    <input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password">
+
+    <p>
+      শুধু অনুমোদিত Admin account দিয়ে প্রবেশ করুন।
+    </p>
+
+    <label>
+      Admin Email
+    </label>
+
+    <input
+      id="loginEmail"
+      type="email"
+      placeholder="admin@example.com"
+      autocomplete="username"
+    >
+
+    <label>
+      Password
+    </label>
+
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="Password"
+      autocomplete="current-password"
+    >
+
     <div id="authError" class="auth-error"></div>
-    <button id="loginBtn" class="btn primary" style="width:100%" onclick="adminLogin()">Login</button>
+
+    <button
+      id="loginBtn"
+      class="btn primary"
+      style="width:100%"
+      onclick="adminLogin()"
+    >
+      Login
+    </button>
+
   </div>
+
 </div>
+
+
+<!-- =========================================
+     ADMIN APP
+========================================= -->
+
 <div id="adminApp">
-<header><div class="head"><div class="logo">🛍️ ShoppingMall BD<small>ADMIN PANEL</small></div><div style="display:flex;gap:6px"><button class="btn gray" onclick="location.href='index.html'">🌐 ওয়েবসাইট</button><button class="btn logout" onclick="adminLogout()">Logout</button></div></div></header>
+
+<header>
+
+  <div class="head">
+
+    <div class="logo">
+      🛍️ ShoppingMall BD
+      <small>ADMIN PANEL</small>
+    </div>
+
+    <div style="display:flex;gap:6px">
+
+      <button
+        class="btn gray"
+        onclick="location.href='index.html'"
+      >
+        🌐 ওয়েবসাইট
+      </button>
+
+      <button
+        class="btn logout"
+        onclick="adminLogout()"
+      >
+        Logout
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+
 <main class="container">
-<div class="stats"><div class="stat"><b id="productCount">0</b><span>মোট পণ্য</span></div><div class="stat"><b id="orderCount">0</b><span>মোট অর্ডার</span></div><div class="stat"><b id="salesTotal">৳0</b><span>মোট বিক্রি</span></div></div>
+
+<!-- =========================================
+     STATS
+========================================= -->
+
+<div class="stats">
+
+  <div class="stat">
+    <b id="productCount">0</b>
+    <span>মোট পণ্য</span>
+  </div>
+
+  <div class="stat">
+    <b id="orderCount">0</b>
+    <span>মোট অর্ডার</span>
+  </div>
+
+  <div class="stat">
+    <b id="salesTotal">৳0</b>
+    <span>মোট বিক্রি</span>
+  </div>
+
+</div>
+
 
 <div class="grid">
-<section class="panel">
-<h2>🖼️ হোম ব্যানার</h2>
-<label>ব্যানার শিরোনাম</label><input id="bannerTitle">
-<label>ব্যানার লেখা</label><input id="bannerText">
-<label>ব্যানার ছবির URL</label><input id="bannerImage" placeholder="https://...">
-<button class="btn primary" onclick="saveBanner()">ব্যানার সেভ করুন</button>
-</section>
+
+<!-- =========================================
+     BANNER
+========================================= -->
 
 <section class="panel">
-<h2>➕ নতুন পণ্য যোগ করুন</h2>
-<label>পণ্যের নাম</label><input id="pName" placeholder="যেমন: স্মার্ট ওয়াচ">
-<label>ক্যাটাগরি</label><input id="pCategory" placeholder="ইলেকট্রনিক্স">
-<label>বিক্রয় মূল্য</label><input id="pPrice" type="number" placeholder="999">
-<label>আগের মূল্য</label><input id="pOld" type="number" placeholder="1299">
-<label>সাইজ (কমা দিয়ে লিখুন)</label><input id="pSizes" placeholder="M, L, XL, XXL">
-<label>স্টক / পরিমাণ (পিস)</label><input id="pQuantity" type="number" min="0" placeholder="10">
-<label>SKU</label><input id="pSku" placeholder="যেমন: 31186">
-<label>পণ্যের বিবরণ</label><textarea id="pDescription" placeholder="পণ্যের বিস্তারিত তথ্য লিখুন..."></textarea>
-<label>ছবির URL</label><input id="pImage" placeholder="https://...">
-<label>ব্যাজ</label><input id="pBadge" placeholder="20% OFF">
-<button class="btn green" onclick="addProduct()">পণ্য যোগ করুন</button>
+
+  <h2>🖼️ হোম ব্যানার</h2>
+
+  <label>
+    ব্যানার শিরোনাম
+  </label>
+
+  <input
+    id="bannerTitle"
+    placeholder="ShoppingMall BD"
+  >
+
+  <label>
+    ব্যানার লেখা
+  </label>
+
+  <input
+    id="bannerText"
+    placeholder="স্মার্ট শপিং, সেরা দামে।"
+  >
+
+  <label>
+    ব্যানার ছবির URL
+  </label>
+
+  <input
+    id="bannerImage"
+    placeholder="https://..."
+  >
+
+  <button
+    class="btn primary"
+    onclick="saveBanner()"
+  >
+    ব্যানার সেভ করুন
+  </button>
+
 </section>
 
-<section class="panel full">
-<h2>📦 পণ্য ম্যানেজমেন্ট</h2>
-<div id="productList"></div>
+
+<!-- =========================================
+     ADD PRODUCT
+========================================= -->
+
+<section class="panel">
+
+  <h2>➕ নতুন পণ্য যোগ করুন</h2>
+
+  <label>
+    পণ্যের নাম
+  </label>
+
+  <input
+    id="pName"
+    placeholder="যেমন: স্মার্ট ওয়াচ"
+  >
+
+  <label>
+    ক্যাটাগরি
+  </label>
+
+  <input
+    id="pCategory"
+    placeholder="ইলেকট্রনিক্স"
+  >
+
+  <label>
+    বিক্রয় মূল্য
+  </label>
+
+  <input
+    id="pPrice"
+    type="number"
+    placeholder="999"
+  >
+
+  <label>
+    আগের মূল্য
+  </label>
+
+  <input
+    id="pOld"
+    type="number"
+    placeholder="1299"
+  >
+
+  <label>
+    সাইজ
+  </label>
+
+  <input
+    id="pSizes"
+    placeholder="M,L,XL,XXL"
+  >
+
+  <div class="small-text">
+    একাধিক সাইজ হলে কমা দিয়ে লিখুন।
+  </div>
+
+  <label>
+    স্টক / Quantity
+  </label>
+
+  <input
+    id="pQuantity"
+    type="number"
+    min="0"
+    placeholder="100"
+  >
+
+  <label>
+    SKU
+  </label>
+
+  <input
+    id="pSku"
+    placeholder="SMBD-001"
+  >
+
+  <label>
+    পণ্যের বিবরণ
+  </label>
+
+  <textarea
+    id="pDescription"
+    placeholder="পণ্যের বিস্তারিত বিবরণ..."
+  ></textarea>
+
+  <label>
+    ছবির URL
+  </label>
+
+  <input
+    id="pImage"
+    placeholder="https://..."
+  >
+
+  <label>
+    ব্যাজ
+  </label>
+
+  <input
+    id="pBadge"
+    placeholder="20% OFF"
+  >
+
+  <button
+    class="btn green"
+    onclick="addProduct()"
+  >
+    পণ্য যোগ করুন
+  </button>
+
 </section>
 
-<section class="panel full">
-<h2>🧾 অর্ডার ম্যানেজমেন্ট</h2>
-<div id="orderList"></div>
-</section>
+
+<!-- =========================================
+     PRODUCTS
+========================================= -->
 
 <section class="panel full">
-<h2>⚙️ ডেটা কন্ট্রোল</h2>
-<button class="btn gray" onclick="exportData()">ডেটা ব্যাকআপ</button>
-<button class="btn danger" onclick="clearOrders()">সব অর্ডার মুছুন</button>
-<div class="note">এটি Firebase Firestore-ভিত্তিক অ্যাডমিন। পণ্য, ব্যানার ও অর্ডার অনলাইনে সেভ হবে এবং index.html-এ রিয়েল-টাইমে দেখা যাবে। নিরাপদ ব্যবহারের জন্য Firebase Authentication ও Firestore Security Rules সেট করা জরুরি।</div>
+
+  <h2>
+    📦 পণ্য ম্যানেজমেন্ট
+  </h2>
+
+  <div id="productList"></div>
+
 </section>
+
+
+<!-- =========================================
+     ORDERS
+========================================= -->
+
+<section class="panel full">
+
+  <h2>
+    🧾 অর্ডার ম্যানেজমেন্ট
+  </h2>
+
+  <div id="orderList"></div>
+
+</section>
+
+
+<!-- =========================================
+     DATA CONTROL
+========================================= -->
+
+<section class="panel full">
+
+  <h2>
+    ⚙️ ডেটা কন্ট্রোল
+  </h2>
+
+  <button
+    class="btn gray"
+    onclick="exportData()"
+  >
+    ডেটা ব্যাকআপ
+  </button>
+
+  <button
+    class="btn danger"
+    onclick="clearOrders()"
+  >
+    সব অর্ডার মুছুন
+  </button>
+
+  <div class="note">
+    এটি Firebase Firestore-ভিত্তিক অ্যাডমিন।
+    পণ্য, ব্যানার ও অর্ডার অনলাইনে সেভ হবে এবং
+    index.html-এ রিয়েল-টাইমে দেখা যাবে।
+    নিরাপদ ব্যবহারের জন্য Firebase Authentication
+    ও Firestore Security Rules সেট করা জরুরি।
+  </div>
+
+</section>
+
 </div>
+
 </main>
+
 </div>
+
+
+<!-- =========================================
+     EDIT PRODUCT MODAL
+========================================= -->
+
+<div id="editModal" class="edit-modal">
+
+  <div class="edit-box">
+
+    <div class="edit-head">
+
+      <strong>
+        ✏️ পণ্য এডিট করুন
+      </strong>
+
+      <button
+        onclick="closeEditModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div class="edit-body">
+
+      <input
+        type="hidden"
+        id="editId"
+      >
+
+      <label>
+        পণ্যের নাম
+      </label>
+
+      <input
+        id="editName"
+      >
+
+      <label>
+        ক্যাটাগরি
+      </label>
+
+      <input
+        id="editCategory"
+      >
+
+      <label>
+        বিক্রয় মূল্য
+      </label>
+
+      <input
+        id="editPrice"
+        type="number"
+      >
+
+      <label>
+        আগের মূল্য
+      </label>
+
+      <input
+        id="editOld"
+        type="number"
+      >
+
+      <label>
+        সাইজ
+      </label>
+
+      <input
+        id="editSizes"
+        placeholder="M,L,XL,XXL"
+      >
+
+      <label>
+        Quantity / Stock
+      </label>
+
+      <input
+        id="editQuantity"
+        type="number"
+        min="0"
+      >
+
+      <label>
+        SKU
+      </label>
+
+      <input
+        id="editSku"
+      >
+
+      <label>
+        ব্যাজ
+      </label>
+
+      <input
+        id="editBadge"
+      >
+
+      <label>
+        ছবির URL
+      </label>
+
+      <input
+        id="editImage"
+      >
+
+      <label>
+        পণ্যের বিবরণ
+      </label>
+
+      <textarea
+        id="editDescription"
+      ></textarea>
+
+      <div class="edit-actions">
+
+        <button
+          class="btn gray"
+          onclick="closeEditModal()"
+        >
+          বাতিল
+        </button>
+
+        <button
+          class="btn primary"
+          onclick="saveEditedProduct()"
+        >
+          পরিবর্তন সেভ করুন
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+/* =========================================
+   FIREBASE IMPORT
+========================================= */
+
 import {
-  getFirestore, collection, doc, addDoc, setDoc, deleteDoc,
-  onSnapshot, getDocs
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+  initializeApp
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
 import {
-  getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+  getFirestore,
+  collection,
+  doc,
+  addDoc,
+  setDoc,
+  deleteDoc,
+  onSnapshot,
+  getDocs
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+/* =========================================
+   FIREBASE CONFIG
+========================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAW2C_q56dGFso0rysmZat4AD4SBWdSIG4",
-  authDomain: "stopping-mall-bd.firebaseapp.com",
-  projectId: "stopping-mall-bd",
-  storageBucket: "stopping-mall-bd.firebasestorage.app",
-  messagingSenderId: "167845214143",
-  appId: "1:167845214143:web:c0747f4eeab5903eb6530a",
-  measurementId: "G-ZKTS66SH7X"
+
+  apiKey:
+    "AIzaSyAW2C_q56dGFso0rysmZat4AD4SBWdSIG4",
+
+  authDomain:
+    "stopping-mall-bd.firebaseapp.com",
+
+  projectId:
+    "stopping-mall-bd",
+
+  storageBucket:
+    "stopping-mall-bd.firebasestorage.app",
+
+  messagingSenderId:
+    "167845214143",
+
+  appId:
+    "1:167845214143:web:c0747f4eeab5903eb6530a",
+
+  measurementId:
+    "G-ZKTS66SH7X"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
 
-// Firebase Console-এ Authentication > Sign-in method > Email/Password চালু করুন।
+const app =
+  initializeApp(firebaseConfig);
 
-const defaultProducts=[
-{id:"1",name:"স্টাইলিশ কিডস টি-শার্ট ও শর্টস সেট",category:"ফ্যাশন",price:650,oldPrice:850,rating:4.8,badge:"২০% OFF",image:"https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=700&q=80"},
-{id:"2",name:"হ্যাপি বিয়ার কিডস সামার সেট",category:"কিডস",price:590,oldPrice:750,rating:4.7,badge:"HOT",image:"https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=700&q=80"},
-{id:"3",name:"ড্যাডিস বয় কিডস টি-শার্ট সেট",category:"ফ্যাশন",price:620,oldPrice:790,rating:4.9,badge:"SALE",image:"https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&w=700&q=80"},
-{id:"4",name:"কিডস কটন টি-শার্ট ও শর্টস",category:"কিডস",price:680,oldPrice:900,rating:4.6,badge:"২৫% OFF",image:"https://images.unsplash.com/photo-1503919545889-aef636e10ad4?auto=format&fit=crop&w=700&q=80"},
-{id:"5",name:"প্রিমিয়াম কিডস স্লিভলেস সেট",category:"কিডস",price:550,oldPrice:700,rating:4.5,badge:"NEW",image:"https://images.unsplash.com/photo-1622037022820-7f2a1c8d4c2f?auto=format&fit=crop&w=700&q=80"},
-{id:"6",name:"বেবি ইয়েলো কটন টি-শার্ট",category:"বেবি",price:450,oldPrice:600,rating:4.8,badge:"SALE",image:"https://images.unsplash.com/photo-1514090458221-65bb69cf63e6?auto=format&fit=crop&w=700&q=80"}
+const db =
+  getFirestore(app);
+
+const auth =
+  getAuth(app);
+
+
+/*
+ Firebase Console-এ:
+
+ Authentication
+ >
+ Sign-in method
+ >
+ Email/Password
+
+ চালু করতে হবে।
+*/
+
+
+/* =========================================
+   DEFAULT PRODUCTS
+========================================= */
+
+const defaultProducts = [
+
+  {
+    id:"1",
+    name:"স্টাইলিশ কিডস টি-শার্ট ও শর্টস সেট",
+    category:"ফ্যাশন",
+    price:650,
+    oldPrice:850,
+    rating:4.8,
+    badge:"২০% OFF",
+    sizes:["M","L","XL","XXL"],
+    quantity:100,
+    sku:"SMBD-001",
+    description:"স্টাইলিশ ও আরামদায়ক কিডস টি-শার্ট ও শর্টস সেট।",
+    image:"https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    id:"2",
+    name:"হ্যাপি বিয়ার কিডস সামার সেট",
+    category:"কিডস",
+    price:590,
+    oldPrice:750,
+    rating:4.7,
+    badge:"HOT",
+    sizes:["M","L","XL"],
+    quantity:100,
+    sku:"SMBD-002",
+    description:"সামার সিজনের জন্য সুন্দর ও আরামদায়ক কিডস সেট।",
+    image:"https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    id:"3",
+    name:"ড্যাডিস বয় কিডস টি-শার্ট সেট",
+    category:"ফ্যাশন",
+    price:620,
+    oldPrice:790,
+    rating:4.9,
+    badge:"SALE",
+    sizes:["M","L","XL","XXL"],
+    quantity:100,
+    sku:"SMBD-003",
+    description:"প্রিমিয়াম কটন ফেব্রিকের সুন্দর কিডস টি-শার্ট সেট।",
+    image:"https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    id:"4",
+    name:"কিডস কটন টি-শার্ট ও শর্টস",
+    category:"কিডস",
+    price:680,
+    oldPrice:900,
+    rating:4.6,
+    badge:"২৫% OFF",
+    sizes:["M","L","XL"],
+    quantity:100,
+    sku:"SMBD-004",
+    description:"নরম কটন ফেব্রিকের আরামদায়ক টি-শার্ট ও শর্টস।",
+    image:"https://images.unsplash.com/photo-1503919545889-aef636e10ad4?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    id:"5",
+    name:"প্রিমিয়াম কিডস স্লিভলেস সেট",
+    category:"কিডস",
+    price:550,
+    oldPrice:700,
+    rating:4.5,
+    badge:"NEW",
+    sizes:["M","L","XL"],
+    quantity:100,
+    sku:"SMBD-005",
+    description:"হালকা ও আরামদায়ক স্লিভলেস কিডস সেট।",
+    image:"https://images.unsplash.com/photo-1622037022820-7f2a1c8d4c2f?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    id:"6",
+    name:"বেবি ইয়েলো কটন টি-শার্ট",
+    category:"বেবি",
+    price:450,
+    oldPrice:600,
+    rating:4.8,
+    badge:"SALE",
+    sizes:["M","L","XL"],
+    quantity:100,
+    sku:"SMBD-006",
+    description:"বেবিদের জন্য নরম ও আরামদায়ক কটন টি-শার্ট।",
+    image:"https://images.unsplash.com/photo-1514090458221-65bb69cf63e6?auto=format&fit=crop&w=700&q=80"
+  }
+
 ];
-const defaults={bannerTitle:"ShoppingMall BD",bannerText:"স্মার্ট শপিং, সেরা দামে।",bannerImage:"https://images.unsplash.com/photo-1607082348824-0a96f2a6d1c5?auto=format&fit=crop&w=1400&q=85"};
 
-let products=[];
-let settings={...defaults};
-let orders=[];
 
-function money(n){return "৳"+Number(n||0).toLocaleString("bn-BD")}
+const defaults = {
+
+  bannerTitle:
+    "ShoppingMall BD",
+
+  bannerText:
+    "স্মার্ট শপিং, সেরা দামে।",
+
+  bannerImage:
+    "https://images.unsplash.com/photo-1607082348824-0a96f2a6d1c5?auto=format&fit=crop&w=1400&q=85"
+
+};
+
+
+/* =========================================
+   GLOBAL DATA
+========================================= */
+
+let products = [];
+
+let settings = {
+  ...defaults
+};
+
+let orders = [];
+
+
+/* =========================================
+   HELPERS
+========================================= */
+
+function money(n){
+
+  return "৳" +
+    Number(n || 0)
+      .toLocaleString("bn-BD");
+
+}
+
+
+function parseSizes(value){
+
+  if(Array.isArray(value)){
+
+    return value
+      .map(x => String(x).trim())
+      .filter(Boolean);
+
+  }
+
+  if(typeof value === "string"){
+
+    return value
+      .split(",")
+      .map(x => x.trim())
+      .filter(Boolean);
+
+  }
+
+  return [];
+
+}
+
+
+/* =========================================
+   SEED PRODUCTS
+========================================= */
 
 async function seedProductsIfEmpty(){
-  const snap=await getDocs(collection(db,"products"));
+
+  const snap =
+    await getDocs(
+      collection(db,"products")
+    );
+
   if(snap.empty){
+
     for(const p of defaultProducts){
-      const {id,...data}=p;
-      await setDoc(doc(db,"products",String(id)),data);
+
+      const {
+        id,
+        ...data
+      } = p;
+
+      await setDoc(
+        doc(
+          db,
+          "products",
+          String(id)
+        ),
+        data
+      );
+
     }
+
   }
+
 }
+
+
+/* =========================================
+   SEED SETTINGS
+========================================= */
 
 async function seedSettingsIfEmpty(){
-  const ref=doc(db,"settings","main");
-  const snap=await getDocs(collection(db,"settings"));
-  if(snap.empty) await setDoc(ref,defaults);
+
+  const ref =
+    doc(
+      db,
+      "settings",
+      "main"
+    );
+
+  const snap =
+    await getDocs(
+      collection(db,"settings")
+    );
+
+  if(snap.empty){
+
+    await setDoc(
+      ref,
+      defaults
+    );
+
+  }
+
 }
+
+
+/* =========================================
+   LOAD SETTINGS
+========================================= */
 
 function loadSettings(){
-  bannerTitle.value=settings.bannerTitle||"ShoppingMall BD";
-  bannerText.value=settings.bannerText||"";
-  bannerImage.value=settings.bannerImage||"";
+
+  document.getElementById("bannerTitle")
+    .value =
+      settings.bannerTitle ||
+      "ShoppingMall BD";
+
+  document.getElementById("bannerText")
+    .value =
+      settings.bannerText || "";
+
+  document.getElementById("bannerImage")
+    .value =
+      settings.bannerImage || "";
+
 }
 
-function saveBanner(){
-  const data={
-    bannerTitle:bannerTitle.value.trim()||"ShoppingMall BD",
-    bannerText:bannerText.value.trim(),
-    bannerImage:bannerImage.value.trim()||defaults.bannerImage
+
+/* =========================================
+   SAVE BANNER
+========================================= */
+
+async function saveBanner(){
+
+  const data = {
+
+    bannerTitle:
+      document.getElementById("bannerTitle")
+        .value.trim() ||
+      "ShoppingMall BD",
+
+    bannerText:
+      document.getElementById("bannerText")
+        .value.trim(),
+
+    bannerImage:
+      document.getElementById("bannerImage")
+        .value.trim() ||
+      defaults.bannerImage
+
   };
-  setDoc(doc(db,"settings","main"),data,{merge:true})
-    .then(()=>alert("ব্যানার Firebase-এ সেভ হয়েছে ✓"))
-    .catch(e=>alert("সেভ হয়নি: "+e.message));
-}
 
-async function addProduct(){
-  const name=pName.value.trim(),cat=pCategory.value.trim(),
-        price=Number(pPrice.value),old=Number(pOld.value),image=pImage.value.trim();
-  const sizes=pSizes.value.split(",").map(s=>s.trim()).filter(Boolean);
-  const quantity=Math.max(0,Number(pQuantity.value||0));
-  const sku=pSku.value.trim();
-  const description=pDescription.value.trim();
-  if(!name||!cat||!price||!image){alert("নাম, ক্যাটাগরি, দাম ও ছবি দিন");return}
   try{
-    await addDoc(collection(db,"products"),{
-      name,category:cat,price,oldPrice:old||price,rating:5,
-      badge:pBadge.value.trim()||"NEW",image,
-      sizes:sizes.length?sizes:["M","L","XL","XXL"],quantity,
-      sku:sku||String(Date.now()).slice(-6),
-      description:description||"প্রিমিয়াম কোয়ালিটি পণ্য। ভালোভাবে প্যাকেজিং করে দ্রুত ডেলিভারি করা হবে।"
-    });
-    ["pName","pCategory","pPrice","pOld","pSizes","pQuantity","pSku","pDescription","pImage","pBadge"].forEach(id=>document.getElementById(id).value="");
-    alert("Firebase-এ পণ্য যোগ হয়েছে ✓");
-  }catch(e){alert("পণ্য যোগ হয়নি: "+e.message)}
-}
 
-function renderProducts(){
-  productList.innerHTML=products.map(p=>{
-    const sizes=Array.isArray(p.sizes)?p.sizes.join(", "):(p.sizes||"M, L, XL, XXL");
-    const qty=p.quantity??p.stock??"—";
-    return `<div class="product"><img src="${p.image}" onerror="this.style.display='none'"><div class="pinfo"><h3>${p.name}</h3><p>${p.category} • ${money(p.price)} • সাইজ: ${sizes} • স্টক: ${qty} • SKU: ${p.sku||p.SKU||p.id}</p></div><div class="actions"><button class="btn gray" onclick="editProduct('${p.id}')">এডিট</button><button class="btn danger" onclick="deleteProduct('${p.id}')">ডিলিট</button></div></div>`;
-  }).join("") || `<p style="color:#888">কোনো পণ্য নেই।</p>`;
-}
+    await setDoc(
+      doc(
+        db,
+        "settings",
+        "main"
+      ),
+      data,
+      {
+        merge:true
+      }
+    );
 
-async function editProduct(id){
-  const p=products.find(x=>x.id===id);if(!p)return;
-  const name=prompt("পণ্যের নাম",p.name);if(name===null)return;
-  const price=prompt("বিক্রয় মূল্য",p.price);if(price===null)return;
-  const category=prompt("ক্যাটাগরি",p.category);if(category===null)return;
-  const sizesText=prompt("সাইজ (কমা দিয়ে)",Array.isArray(p.sizes)?p.sizes.join(", "):(p.sizes||"M, L, XL, XXL"));if(sizesText===null)return;
-  const quantityText=prompt("স্টক / পরিমাণ (পিস)",p.quantity??p.stock??0);if(quantityText===null)return;
-  const sku=prompt("SKU",p.sku||p.SKU||p.id);if(sku===null)return;
-  const description=prompt("পণ্যের বিবরণ",p.description||p.details||"");if(description===null)return;
-  const sizes=sizesText.split(",").map(s=>s.trim()).filter(Boolean);
-  try{
-    await setDoc(doc(db,"products",id),{
-      name:name.trim()||p.name,
-      price:Number(price)||p.price,
-      category:category.trim()||p.category,
-      sizes:sizes.length?sizes:["M","L","XL","XXL"],
-      quantity:Math.max(0,Number(quantityText)||0),
-      sku:sku.trim()||p.sku||p.SKU||p.id,
-      description:description.trim()
-    },{merge:true});
-    alert("পণ্য আপডেট হয়েছে ✓");
-  }catch(e){alert("আপডেট হয়নি: "+e.message)}
-}
+    alert(
+      "ব্যানার Firebase-এ সেভ হয়েছে ✓"
+    );
 
-async function deleteProduct(id){
-  if(!confirm("এই পণ্যটি Firebase থেকে মুছবেন?"))return;
-  try{await deleteDoc(doc(db,"products",id));alert("পণ্য মুছে ফেলা হয়েছে ✓")}
-  catch(e){alert("ডিলিট হয়নি: "+e.message)}
-}
-
-function renderOrders(){
-  orderList.innerHTML=orders.length?orders.map(o=>`<div class="order"><h3>অর্ডার #${o.id} <span class="status">${o.status||"নতুন"}</span></h3><p><b>কাস্টমার:</b> ${o.customer?.name||""} • ${o.customer?.phone||""}<br><b>ঠিকানা:</b> ${o.customer?.address||""}<br><b>পেমেন্ট:</b> ${o.customer?.payment||""}<br><b>পণ্য:</b> ${(o.items||[]).map(x=>x.name+" × "+x.qty).join(", ")}<br><b>মোট:</b> ${money(o.total)} • ${o.date||""}</p><div class="actions" style="margin-top:7px"><button class="btn green" onclick="setStatus('${o.id}','কনফার্ম')">কনফার্ম</button><button class="btn gray" onclick="setStatus('${o.id}','ডেলিভারি')">ডেলিভারি</button><button class="btn danger" onclick="setStatus('${o.id}','বাতিল')">বাতিল</button></div></div>`).join(""):`<p style="color:#888">এখনো কোনো অর্ডার নেই।</p>`;
-}
-
-async function setStatus(id,status){
-  try{await setDoc(doc(db,"orders",id),{status},{merge:true})}catch(e){alert("স্ট্যাটাস পরিবর্তন হয়নি: "+e.message)}
-}
-
-async function clearOrders(){
-  if(!confirm("সব অর্ডার মুছে ফেলবেন?"))return;
-  try{
-    for(const o of orders) await deleteDoc(doc(db,"orders",o.id));
-    alert("সব অর্ডার মুছে ফেলা হয়েছে ✓");
-  }catch(e){alert("সব অর্ডার মুছতে সমস্যা হয়েছে: "+e.message)}
-}
-
-function stats(){
-  productCount.textContent=products.length;
-  orderCount.textContent=orders.length;
-  salesTotal.textContent=money(orders.filter(o=>o.status!=="বাতিল").reduce((s,o)=>s+Number(o.total||0),0));
-}
-
-function exportData(){
-  const data={products,settings,orders};
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));
-  a.download="shoppingmall-bd-firebase-backup.json";a.click();
-}
-
-window.saveBanner=saveBanner;window.addProduct=addProduct;window.editProduct=editProduct;
-window.deleteProduct=deleteProduct;window.setStatus=setStatus;window.clearOrders=clearOrders;
-window.exportData=exportData;
-
-let unsubProducts=null, unsubSettings=null, unsubOrders=null;
-
-function showAdmin(){
-  document.getElementById("authScreen").style.display="none";
-  document.getElementById("adminApp").style.display="block";
-}
-function showLogin(){
-  document.getElementById("authScreen").style.display="flex";
-  document.getElementById("adminApp").style.display="none";
-}
-
-async function adminLogin(){
-  const email=document.getElementById("loginEmail").value.trim();
-  const password=document.getElementById("loginPassword").value;
-  const err=document.getElementById("authError");
-  const btn=document.getElementById("loginBtn");
-  err.textContent="";
-  if(!email||!password){err.textContent="Email ও password দিন।";return}
-  btn.disabled=true;
-  try{
-    await signInWithEmailAndPassword(auth,email,password);
   }catch(e){
-    err.textContent="Login হয়নি: "+(
-      e.code==="auth/invalid-credential" ? "Email বা password ভুল।" :
-      e.code==="auth/too-many-requests" ? "অনেকবার চেষ্টা হয়েছে। কিছুক্ষণ পরে চেষ্টা করুন।" :
+
+    alert(
+      "সেভ হয়নি: " +
       e.message
     );
-  }finally{btn.disabled=false}
+
+  }
+
 }
+
+window.saveBanner =
+  saveBanner;
+
+
+/* =========================================
+   ADD PRODUCT
+========================================= */
+
+async function addProduct(){
+
+  const name =
+    document.getElementById("pName")
+      .value.trim();
+
+  const cat =
+    document.getElementById("pCategory")
+      .value.trim();
+
+  const price =
+    Number(
+      document.getElementById("pPrice")
+        .value
+    );
+
+  const old =
+    Number(
+      document.getElementById("pOld")
+        .value
+    );
+
+  const sizes =
+    parseSizes(
+      document.getElementById("pSizes")
+        .value
+    );
+
+  const quantity =
+    Number(
+      document.getElementById("pQuantity")
+        .value
+    );
+
+  const sku =
+    document.getElementById("pSku")
+      .value.trim();
+
+  const description =
+    document.getElementById("pDescription")
+      .value.trim();
+
+  const image =
+    document.getElementById("pImage")
+      .value.trim();
+
+  const badge =
+    document.getElementById("pBadge")
+      .value.trim();
+
+
+  if(
+    !name ||
+    !cat ||
+    !price ||
+    !image
+  ){
+
+    alert(
+      "নাম, ক্যাটাগরি, দাম ও ছবি দিন"
+    );
+
+    return;
+  }
+
+
+  try{
+
+    await addDoc(
+      collection(db,"products"),
+      {
+
+        name:name,
+
+        category:cat,
+
+        price:price,
+
+        oldPrice:
+          old || price,
+
+        rating:5,
+
+        badge:
+          badge || "NEW",
+
+        image:image,
+
+        sizes:
+          sizes.length
+          ?
+          sizes
+          :
+          ["M","L","XL","XXL"],
+
+        quantity:
+          Number.isFinite(quantity)
+          ?
+          quantity
+          :
+          0,
+
+        sku:
+          sku || "",
+
+        description:
+          description || ""
+
+      }
+    );
+
+
+    [
+      "pName",
+      "pCategory",
+      "pPrice",
+      "pOld",
+      "pSizes",
+      "pQuantity",
+      "pSku",
+      "pDescription",
+      "pImage",
+      "pBadge"
+    ].forEach(id => {
+
+      document.getElementById(id)
+        .value = "";
+
+    });
+
+
+    alert(
+      "Firebase-এ পণ্য যোগ হয়েছে ✓"
+    );
+
+  }catch(e){
+
+    alert(
+      "পণ্য যোগ হয়নি: " +
+      e.message
+    );
+
+  }
+
+}
+
+window.addProduct =
+  addProduct;
+
+
+/* =========================================
+   RENDER PRODUCTS
+========================================= */
+
+function renderProducts(){
+
+  const list =
+    document.getElementById(
+      "productList"
+    );
+
+  if(!products.length){
+
+    list.innerHTML = `
+      <p style="color:#888">
+        কোনো পণ্য নেই।
+      </p>
+    `;
+
+    return;
+  }
+
+
+  list.innerHTML =
+    products.map(p => {
+
+      const sizes =
+        parseSizes(p.sizes);
+
+      const stock =
+        p.quantity !== undefined
+        ?
+        p.quantity
+        :
+        (
+          p.stock !== undefined
+          ?
+          p.stock
+          :
+          "—"
+        );
+
+      return `
+
+        <div class="product">
+
+          <img
+            src="${p.image || ""}"
+            onerror="this.style.display='none'"
+            alt="${p.name || ""}"
+          >
+
+          <div class="pinfo">
+
+            <h3>
+              ${p.name || ""}
+            </h3>
+
+            <p>
+              ${p.category || "—"}
+              •
+              ${money(p.price)}
+            </p>
+
+            <div class="product-meta">
+
+              <span class="tag">
+                স্টক: ${stock}
+              </span>
+
+              <span class="tag">
+                SKU:
+                ${p.sku || p.SKU || "—"}
+              </span>
+
+              <span class="tag">
+                সাইজ:
+                ${
+                  sizes.length
+                  ?
+                  sizes.join(", ")
+                  :
+                  "—"
+                }
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="actions">
+
+            <button
+              class="btn gray"
+              onclick="editProduct('${p.id}')"
+            >
+              এডিট
+            </button>
+
+            <button
+              class="btn danger"
+              onclick="deleteProduct('${p.id}')"
+            >
+              ডিলিট
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================================
+   EDIT PRODUCT
+========================================= */
+
+function editProduct(id){
+
+  const p =
+    products.find(
+      x => x.id === id
+    );
+
+  if(!p) return;
+
+
+  document.getElementById("editId")
+    .value = p.id;
+
+  document.getElementById("editName")
+    .value = p.name || "";
+
+  document.getElementById("editCategory")
+    .value = p.category || "";
+
+  document.getElementById("editPrice")
+    .value = p.price || "";
+
+  document.getElementById("editOld")
+    .value = p.oldPrice || "";
+
+  document.getElementById("editSizes")
+    .value =
+      parseSizes(p.sizes).join(", ");
+
+  document.getElementById("editQuantity")
+    .value =
+      p.quantity !== undefined
+      ?
+      p.quantity
+      :
+      (
+        p.stock !== undefined
+        ?
+        p.stock
+        :
+        0
+      );
+
+  document.getElementById("editSku")
+    .value =
+      p.sku ||
+      p.SKU ||
+      "";
+
+  document.getElementById("editBadge")
+    .value =
+      p.badge ||
+      "";
+
+  document.getElementById("editImage")
+    .value =
+      p.image ||
+      "";
+
+  document.getElementById("editDescription")
+    .value =
+      p.description ||
+      p.details ||
+      "";
+
+
+  document.getElementById("editModal")
+    .classList.add("show");
+
+}
+
+window.editProduct =
+  editProduct;
+
+
+/* =========================================
+   CLOSE EDIT MODAL
+========================================= */
+
+function closeEditModal(){
+
+  document.getElementById("editModal")
+    .classList.remove("show");
+
+}
+
+window.closeEditModal =
+  closeEditModal;
+
+
+/* =========================================
+   SAVE EDITED PRODUCT
+========================================= */
+
+async function saveEditedProduct(){
+
+  const id =
+    document.getElementById("editId")
+      .value;
+
+  if(!id) return;
+
+
+  const name =
+    document.getElementById("editName")
+      .value.trim();
+
+  const category =
+    document.getElementById("editCategory")
+      .value.trim();
+
+  const price =
+    Number(
+      document.getElementById("editPrice")
+        .value
+    );
+
+  const oldPrice =
+    Number(
+      document.getElementById("editOld")
+        .value
+    );
+
+  const sizes =
+    parseSizes(
+      document.getElementById("editSizes")
+        .value
+    );
+
+  const quantity =
+    Number(
+      document.getElementById("editQuantity")
+        .value
+    );
+
+  const sku =
+    document.getElementById("editSku")
+      .value.trim();
+
+  const badge =
+    document.getElementById("editBadge")
+      .value.trim();
+
+  const image =
+    document.getElementById("editImage")
+      .value.trim();
+
+  const description =
+    document.getElementById("editDescription")
+      .value.trim();
+
+
+  if(
+    !name ||
+    !category ||
+    !price
+  ){
+
+    alert(
+      "নাম, ক্যাটাগরি এবং দাম দিতে হবে।"
+    );
+
+    return;
+  }
+
+
+  try{
+
+    await setDoc(
+
+      doc(
+        db,
+        "products",
+        id
+      ),
+
+      {
+
+        name:name,
+
+        category:category,
+
+        price:price,
+
+        oldPrice:
+          oldPrice || price,
+
+        sizes:
+          sizes.length
+          ?
+          sizes
+          :
+          ["M","L","XL","XXL"],
+
+        quantity:
+          Number.isFinite(quantity)
+          ?
+          quantity
+          :
+          0,
+
+        sku:sku,
+
+        badge:
+          badge || "NEW",
+
+        image:image,
+
+        description:description
+
+      },
+
+      {
+        merge:true
+      }
+
+    );
+
+
+    closeEditModal();
+
+    alert(
+      "পণ্য আপডেট হয়েছে ✓"
+    );
+
+  }catch(e){
+
+    alert(
+      "আপডেট হয়নি: " +
+      e.message
+    );
+
+  }
+
+}
+
+window.saveEditedProduct =
+  saveEditedProduct;
+
+
+/* =========================================
+   DELETE PRODUCT
+========================================= */
+
+async function deleteProduct(id){
+
+  if(
+    !confirm(
+      "এই পণ্যটি Firebase থেকে মুছবেন?"
+    )
+  ){
+
+    return;
+  }
+
+
+  try{
+
+    await deleteDoc(
+      doc(
+        db,
+        "products",
+        id
+      )
+    );
+
+    alert(
+      "পণ্য মুছে ফেলা হয়েছে ✓"
+    );
+
+  }catch(e){
+
+    alert(
+      "ডিলিট হয়নি: " +
+      e.message
+    );
+
+  }
+
+}
+
+window.deleteProduct =
+  deleteProduct;
+
+
+/* =========================================
+   RENDER ORDERS
+========================================= */
+
+function renderOrders(){
+
+  const box =
+    document.getElementById(
+      "orderList"
+    );
+
+
+  if(!orders.length){
+
+    box.innerHTML = `
+      <p style="color:#888">
+        এখনো কোনো অর্ডার নেই।
+      </p>
+    `;
+
+    return;
+  }
+
+
+  box.innerHTML =
+    orders.map(o => `
+
+      <div class="order">
+
+        <h3>
+
+          অর্ডার #${o.id}
+
+          <span class="status">
+            ${o.status || "নতুন"}
+          </span>
+
+        </h3>
+
+
+        <p>
+
+          <b>কাস্টমার:</b>
+          ${o.customer?.name || ""}
+          •
+          ${o.customer?.phone || ""}
+
+          <br>
+
+          <b>ঠিকানা:</b>
+          ${o.customer?.address || ""}
+
+          <br>
+
+          <b>পেমেন্ট:</b>
+          ${o.customer?.payment || ""}
+
+          <br>
+
+          <b>পণ্য:</b>
+
+          ${
+            (o.items || [])
+              .map(x => `
+
+                ${x.name || ""}
+
+                × ${x.qty || 1}
+
+                ${
+                  x.size
+                  ?
+                  ` • সাইজ: ${x.size}`
+                  :
+                  ""
+                }
+
+                ${
+                  x.sku
+                  ?
+                  ` • SKU: ${x.sku}`
+                  :
+                  ""
+                }
+
+              `)
+              .join("<br>")
+          }
+
+          <br>
+
+          <b>মোট:</b>
+          ${money(o.total)}
+
+          •
+          ${o.date || ""}
+
+        </p>
+
+
+        ${
+          (o.items || []).map(x => `
+
+            <div style="
+              margin-top:7px;
+              background:#fafafa;
+              padding:8px;
+              border-radius:6px;
+              font-size:11px;
+              line-height:1.6;
+            ">
+
+              <b>
+                ${x.name || "পণ্য"}
+              </b>
+
+              <br>
+
+              সাইজ:
+              ${x.size || "—"}
+
+              <br>
+
+              Quantity:
+              ${x.qty || 1}
+
+              <br>
+
+              SKU:
+              ${x.sku || "—"}
+
+              <br>
+
+              Price:
+              ${money(x.price)}
+
+              ${
+                x.description
+                ?
+                `
+                  <br>
+                  বিবরণ:
+                  ${x.description}
+                `
+                :
+                ""
+              }
+
+            </div>
+
+          `).join("")
+        }
+
+
+        <div
+          class="actions"
+          style="margin-top:9px"
+        >
+
+          <button
+            class="btn green"
+            onclick="setStatus(
+              '${o.id}',
+              'কনফার্ম'
+            )"
+          >
+            কনফার্ম
+          </button>
+
+          <button
+            class="btn gray"
+            onclick="setStatus(
+              '${o.id}',
+              'ডেলিভারি'
+            )"
+          >
+            ডেলিভারি
+          </button>
+
+          <button
+            class="btn danger"
+            onclick="setStatus(
+              '${o.id}',
+              'বাতিল'
+            )"
+          >
+            বাতিল
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+async function setStatus(
+  id,
+  status
+){
+
+  try{
+
+    await setDoc(
+
+      doc(
+        db,
+        "orders",
+        id
+      ),
+
+      {
+        status:status
+      },
+
+      {
+        merge:true
+      }
+
+    );
+
+  }catch(e){
+
+    alert(
+      "স্ট্যাটাস পরিবর্তন হয়নি: " +
+      e.message
+    );
+
+  }
+
+}
+
+window.setStatus =
+  setStatus;
+
+
+/* =========================================
+   CLEAR ORDERS
+========================================= */
+
+async function clearOrders(){
+
+  if(
+    !confirm(
+      "সব অর্ডার মুছে ফেলবেন?"
+    )
+  ){
+
+    return;
+  }
+
+
+  try{
+
+    for(
+      const o of orders
+    ){
+
+      await deleteDoc(
+        doc(
+          db,
+          "orders",
+          o.id
+        )
+      );
+
+    }
+
+
+    alert(
+      "সব অর্ডার মুছে ফেলা হয়েছে ✓"
+    );
+
+  }catch(e){
+
+    alert(
+      "সব অর্ডার মুছতে সমস্যা হয়েছে: " +
+      e.message
+    );
+
+  }
+
+}
+
+window.clearOrders =
+  clearOrders;
+
+
+/* =========================================
+   STATS
+========================================= */
+
+function stats(){
+
+  document.getElementById(
+    "productCount"
+  ).textContent =
+    products.length;
+
+
+  document.getElementById(
+    "orderCount"
+  ).textContent =
+    orders.length;
+
+
+  const sales =
+    orders
+      .filter(
+        o => o.status !== "বাতিল"
+      )
+      .reduce(
+        (s,o) =>
+          s +
+          Number(o.total || 0),
+        0
+      );
+
+
+  document.getElementById(
+    "salesTotal"
+  ).textContent =
+    money(sales);
+
+}
+
+
+/* =========================================
+   EXPORT BACKUP
+========================================= */
+
+function exportData(){
+
+  const data = {
+
+    products,
+
+    settings,
+
+    orders
+
+  };
+
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          data,
+          null,
+          2
+        )
+      ],
+      {
+        type:"application/json"
+      }
+    );
+
+
+  const a =
+    document.createElement("a");
+
+  a.href =
+    URL.createObjectURL(blob);
+
+  a.download =
+    "shoppingmall-bd-firebase-backup.json";
+
+  a.click();
+
+
+  URL.revokeObjectURL(
+    a.href
+  );
+
+}
+
+window.exportData =
+  exportData;
+
+
+/* =========================================
+   AUTH UI
+========================================= */
+
+function showAdmin(){
+
+  document.getElementById(
+    "authScreen"
+  ).style.display =
+    "none";
+
+  document.getElementById(
+    "adminApp"
+  ).style.display =
+    "block";
+
+}
+
+
+function showLogin(){
+
+  document.getElementById(
+    "authScreen"
+  ).style.display =
+    "flex";
+
+  document.getElementById(
+    "adminApp"
+  ).style.display =
+    "none";
+
+}
+
+
+/* =========================================
+   ADMIN LOGIN
+========================================= */
+
+async function adminLogin(){
+
+  const email =
+    document.getElementById(
+      "loginEmail"
+    ).value.trim();
+
+  const password =
+    document.getElementById(
+      "loginPassword"
+    ).value;
+
+  const err =
+    document.getElementById(
+      "authError"
+    );
+
+  const btn =
+    document.getElementById(
+      "loginBtn"
+    );
+
+
+  err.textContent = "";
+
+
+  if(
+    !email ||
+    !password
+  ){
+
+    err.textContent =
+      "Email ও password দিন।";
+
+    return;
+  }
+
+
+  btn.disabled = true;
+
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+  }catch(e){
+
+    err.textContent =
+      "Login হয়নি: " +
+      (
+        e.code ===
+        "auth/invalid-credential"
+
+        ?
+
+        "Email বা password ভুল।"
+
+        :
+
+        e.code ===
+        "auth/too-many-requests"
+
+        ?
+
+        "অনেকবার চেষ্টা হয়েছে। কিছুক্ষণ পরে চেষ্টা করুন।"
+
+        :
+
+        e.message
+      );
+
+  }finally{
+
+    btn.disabled = false;
+
+  }
+
+}
+
+window.adminLogin =
+  adminLogin;
+
+
+/* =========================================
+   LOGOUT
+========================================= */
 
 async function adminLogout(){
+
   await signOut(auth);
+
 }
+
+window.adminLogout =
+  adminLogout;
+
+
+/* =========================================
+   FIREBASE LISTENERS
+========================================= */
+
+let unsubProducts = null;
+let unsubSettings = null;
+let unsubOrders = null;
+
 
 function startAdminListeners(){
-  if(unsubProducts)unsubProducts();
-  if(unsubSettings)unsubSettings();
-  if(unsubOrders)unsubOrders();
 
-  unsubProducts=onSnapshot(collection(db,"products"),snap=>{
-    products=snap.docs.map(d=>({id:d.id,...d.data()}));
-    products.sort((a,b)=>String(a.name).localeCompare(String(b.name)));
-    renderProducts();stats();
-  },e=>alert("Products Firebase error: "+e.message));
+  if(unsubProducts)
+    unsubProducts();
 
-  unsubSettings=onSnapshot(doc(db,"settings","main"),snap=>{
-    if(snap.exists()){settings={...defaults,...snap.data()};loadSettings();}
-  },e=>console.error(e));
+  if(unsubSettings)
+    unsubSettings();
 
-  unsubOrders=onSnapshot(collection(db,"orders"),snap=>{
-    orders=snap.docs.map(d=>({id:d.id,...d.data()}));
-    orders.sort((a,b)=>Number(b.createdAt||0)-Number(a.createdAt||0));
-    renderOrders();stats();
-  },e=>alert("Orders Firebase error: "+e.message));
+  if(unsubOrders)
+    unsubOrders();
+
+
+  /* PRODUCTS */
+
+  unsubProducts =
+    onSnapshot(
+
+      collection(
+        db,
+        "products"
+      ),
+
+      snap => {
+
+        products =
+          snap.docs.map(
+            d => ({
+              id:d.id,
+              ...d.data()
+            })
+          );
+
+
+        products.sort(
+          (a,b) =>
+            String(a.name || "")
+              .localeCompare(
+                String(b.name || "")
+              )
+        );
+
+
+        renderProducts();
+
+        stats();
+
+      },
+
+      e => {
+
+        alert(
+          "Products Firebase error: " +
+          e.message
+        );
+
+      }
+
+    );
+
+
+  /* SETTINGS */
+
+  unsubSettings =
+    onSnapshot(
+
+      doc(
+        db,
+        "settings",
+        "main"
+      ),
+
+      snap => {
+
+        if(
+          snap.exists()
+        ){
+
+          settings = {
+            ...defaults,
+            ...snap.data()
+          };
+
+          loadSettings();
+
+        }
+
+      },
+
+      e =>
+        console.error(e)
+
+    );
+
+
+  /* ORDERS */
+
+  unsubOrders =
+    onSnapshot(
+
+      collection(
+        db,
+        "orders"
+      ),
+
+      snap => {
+
+        orders =
+          snap.docs.map(
+            d => ({
+              id:d.id,
+              ...d.data()
+            })
+          );
+
+
+        orders.sort(
+          (a,b) =>
+            Number(
+              b.createdAt || 0
+            ) -
+            Number(
+              a.createdAt || 0
+            )
+        );
+
+
+        renderOrders();
+
+        stats();
+
+      },
+
+      e => {
+
+        alert(
+          "Orders Firebase error: " +
+          e.message
+        );
+
+      }
+
+    );
+
+
+  /* SEED */
 
   (async()=>{
-    try{await seedProductsIfEmpty();await seedSettingsIfEmpty();}
-    catch(e){alert("Firebase চালু করতে সমস্যা: "+e.message)}
+
+    try{
+
+      await seedProductsIfEmpty();
+
+      await seedSettingsIfEmpty();
+
+    }catch(e){
+
+      alert(
+        "Firebase চালু করতে সমস্যা: " +
+        e.message
+      );
+
+    }
+
   })();
+
 }
 
-onAuthStateChanged(auth,user=>{
-  if(user){
-    showAdmin();
-    startAdminListeners();
-  }else{
-    if(unsubProducts)unsubProducts();
-    if(unsubSettings)unsubSettings();
-    if(unsubOrders)unsubOrders();
-    unsubProducts=unsubSettings=unsubOrders=null;
-    showLogin();
-  }
-});
 
-window.adminLogin=adminLogin;
-window.adminLogout=adminLogout;
+/* =========================================
+   AUTH STATE
+========================================= */
+
+onAuthStateChanged(
+  auth,
+  user => {
+
+    if(user){
+
+      showAdmin();
+
+      startAdminListeners();
+
+    }else{
+
+      if(unsubProducts)
+        unsubProducts();
+
+      if(unsubSettings)
+        unsubSettings();
+
+      if(unsubOrders)
+        unsubOrders();
+
+
+      unsubProducts = null;
+      unsubSettings = null;
+      unsubOrders = null;
+
+
+      showLogin();
+
+    }
+
+  }
+);
+
 </script>
+
 </body>
 </html>
